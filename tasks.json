@@ -1,10 +1,13 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T18:05:27.004Z",
+  "exportedAt": "2026-05-20T18:20:14.104Z",
   "projects": [
     "General",
     "Legacy Fields",
-    "Saddleside"
+    "Legado",
+    "Lonestar, Phase 2A",
+    "Saddleside",
+    "TOEC, Phase 10"
   ],
   "statuses": [
     "Upcoming",
@@ -12,5 +15,36 @@
     "Holding Pattern",
     "Complete"
   ],
-  "tasks": []
+  "tasks": [
+    {
+      "id": 1779300908887,
+      "name": "BKV First Amendment",
+      "project": "Saddleside",
+      "priority": "High",
+      "status": "In Progress",
+      "due": "2026-05-29",
+      "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
+      "selected": true
+    },
+    {
+      "id": 1779300942475,
+      "name": "EnLink Easement Amendment",
+      "project": "Saddleside",
+      "priority": "High",
+      "status": "In Progress",
+      "due": "2026-05-29",
+      "notes": "Chelsea sending to JAE for confirmation on Title.",
+      "selected": true
+    },
+    {
+      "id": 1779301059670,
+      "name": "Waterline Easement Documents",
+      "project": "Legacy Fields",
+      "priority": "Critical",
+      "status": "In Progress",
+      "due": "2026-05-22",
+      "notes": "Can we get the standard language to initiate discussions? \n\nNeeded for H.A Smith, AIL (Hillwood), and Excel (DHL)",
+      "selected": true
+    }
+  ]
 }
