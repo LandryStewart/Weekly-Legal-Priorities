@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T19:59:35.604Z",
+  "exportedAt": "2026-05-20T20:01:38.448Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -12,6 +12,7 @@
     "Lonestar, Phase 2A",
     "Lonestar, Phase 2B",
     "Saddleside",
+    "Terra Trace",
     "TOEC, Phase 10"
   ],
   "statuses": [
@@ -145,6 +146,16 @@
       "id": 1779307173983,
       "name": "Partial Assignment",
       "project": "Lonestar, Phase 2B",
+      "priority": "Medium",
+      "status": "Upcoming",
+      "due": "",
+      "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1779307294859,
+      "name": "Phase 3 PSA",
+      "project": "Terra Trace",
       "priority": "Medium",
       "status": "Upcoming",
       "due": "",
