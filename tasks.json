@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T19:28:01.156Z",
+  "exportedAt": "2026-05-20T19:47:22.240Z",
   "projects": [
     "Diocese",
     "General",
@@ -85,6 +85,26 @@
       "status": "In Progress",
       "due": "",
       "notes": "Contract in sellers court.",
+      "selected": true
+    },
+    {
+      "id": 1779305671029,
+      "name": "BVRT NSSA Amendment / Easement",
+      "project": "Saddleside",
+      "priority": "Critical",
+      "status": "In Progress",
+      "due": "2026-05-22",
+      "notes": "Outside legal making revisions to NSSA and Permanent Easement",
+      "selected": true
+    },
+    {
+      "id": 1779306213223,
+      "name": "Phase 2 Contract",
+      "project": "Legado",
+      "priority": "Medium",
+      "status": "Holding Pattern",
+      "due": "",
+      "notes": "Drafting PSA. Holding pattern until FHA gets resolved.",
       "selected": true
     }
   ]
