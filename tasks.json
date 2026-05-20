@@ -1,7 +1,8 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T19:19:50.175Z",
+  "exportedAt": "2026-05-20T19:26:04.840Z",
   "projects": [
+    "Diocese",
     "General",
     "Legacy Fields",
     "Legado",
@@ -74,6 +75,16 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Need to know if we are overhauling this agreement or keep it as is.",
+      "selected": true
+    },
+    {
+      "id": 1779305138608,
+      "name": "Contract",
+      "project": "Diocese",
+      "priority": "Medium",
+      "status": "In Progress",
+      "due": "",
+      "notes": "Contract in sellers court.",
       "selected": true
     }
   ]
