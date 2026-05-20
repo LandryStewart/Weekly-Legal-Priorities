@@ -100,13 +100,44 @@
     .item strong{font-size:.92rem}
 
     .cb{width:18px;height:18px;cursor:pointer}
+  
+    @keyframes settingsSlide{
+      from{opacity:0;transform:translateY(-10px)}
+      to{opacity:1;transform:translateY(0)}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>📋 Task Builder + Weekly Summary</h1>
-    <p>Create tasks by project, priority (Critical/High/Medium/Low), stage/status (customizable), and an optional due date. Generate a weekly summary you can paste into Outlook.</p>
+  <header style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;position:relative;">
+    <div style="flex:1">
+      <h1>📋 Task Builder + Weekly Summary</h1>
+      <p>Create tasks by project, priority (Critical/High/Medium/Low), stage/status (customizable), and an optional due date. Generate a weekly summary you can paste into Outlook.</p>
+    </div>
+    <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;margin-top:2px;flex-shrink:0;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">⚙️</button>
   </header>
+
+  <!-- Settings Panel (hidden by default) -->
+  <div id="settingsPanel" style="display:none;position:absolute;top:70px;right:18px;z-index:1000;background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 14px 34px rgba(0,0,0,.18);padding:18px 20px;width:380px;max-width:92vw;animation:settingsSlide .2s ease-out;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h3 style="margin:0;font-size:1rem;color:#1b2a4a;font-weight:900;">☁️ GitHub Sync Settings</h3>
+      <button onclick="toggleSettings(event)" style="background:none;border:none;font-size:1.2rem;cursor:pointer;color:#6b7280;padding:2px 6px;border-radius:8px;" title="Close">✕</button>
+    </div>
+    <p style="margin:0 0 10px;font-size:.78rem;color:#6b7280;">Repo: <strong>LandryStewart/Weekly-Legal-Priorities</strong> (main) · File: tasks.json</p>
+
+    <label style="font-size:.72rem;font-weight:900;color:#1b2a4a;text-transform:uppercase;letter-spacing:.5px;">Personal Access Token</label>
+    <div style="display:flex;gap:8px;align-items:center;margin:6px 0 12px;">
+      <input id="ghTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" style="flex:1;border:1px solid #e5e7eb;border-radius:12px;padding:9px 12px;font-size:.9rem;" />
+      <button class="btn primary" type="button" onclick="saveGHToken()" style="white-space:nowrap;">Save</button>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn primary" type="button" onclick="pushToGitHub()">⬆️ Push to GitHub</button>
+      <button class="btn outline" type="button" onclick="pullFromGitHub()">⬇️ Pull from GitHub</button>
+    </div>
+    <div style="margin-top:8px;min-height:22px;">
+      <span id="ghStatus" style="font-size:.82rem;font-weight:700;"></span>
+    </div>
+  </div>
 
   <div class="wrap">
     <div class="grid">
@@ -210,31 +241,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: GitHub Sync + Weekly Summary -->
-      <div class="card" style="margin-bottom:14px">
-        <h2>☁️ GitHub Sync</h2>
-        <p class="muted" style="margin-bottom:8px;font-size:.88rem">Sync your tasks across devices via GitHub.</p>
-        <p class="muted" style="margin-bottom:10px;font-size:.78rem">Repo: <strong>LandryStewart/Weekly-Legal-Priorities</strong> (main) · File: tasks.json</p>
-
-        <div class="formgrid">
-          <div class="field col-12">
-            <label>Personal Access Token</label>
-            <div class="plusline">
-              <input id="ghTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" />
-              <button class="btn primary" type="button" onclick="saveGHToken()">Save</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row" style="margin-top:10px">
-          <button class="btn primary" type="button" onclick="pushToGitHub()">⬆️ Push to GitHub</button>
-          <button class="btn outline" type="button" onclick="pullFromGitHub()">⬇️ Pull from GitHub</button>
-        </div>
-        <div style="margin-top:8px;min-height:22px">
-          <span id="ghStatus" style="font-size:.82rem;font-weight:700"></span>
-        </div>
-      </div>
-
+      <!-- RIGHT: Weekly Summary -->
       <div class="card">
         <h2>📧 Weekly Summary</h2>
         <p class="muted" style="margin-bottom:10px;font-size:.9rem">Generate a weekly summary and copy it into an email. (Works best in Edge/Chrome.)</p>
@@ -1009,6 +1016,28 @@
       event.target.value = '';
     }
 
+    // ===================== Settings Panel =====================
+    function toggleSettings(e){
+      if(e) e.stopPropagation();
+      const panel = document.getElementById('settingsPanel');
+      if(panel.style.display === 'none' || panel.style.display === ''){
+        panel.style.display = 'block';
+      } else {
+        panel.style.display = 'none';
+      }
+    }
+
+    // Close settings when clicking outside
+    document.addEventListener('click', function(e){
+      const panel = document.getElementById('settingsPanel');
+      const gear = document.getElementById('settingsGear');
+      if(panel && panel.style.display === 'block'){
+        if(!panel.contains(e.target) && e.target !== gear){
+          panel.style.display = 'none';
+        }
+      }
+    });
+
     // ===================== GitHub Sync =====================
     const GH_OWNER = 'LandryStewart';
     const GH_REPO = 'Weekly-Legal-Priorities';
@@ -1092,7 +1121,7 @@
         }
 
         const now = new Date().toLocaleTimeString();
-        ghStatus('✅ Pushed successfully at ' + now, '#16a34a');
+        ghStatus('✅ Pushed at ' + now, '#16a34a');
         toast('⬆️ Tasks pushed to GitHub');
       }catch(e){
         ghStatus('❌ Push failed: ' + e.message, '#dc2626');
@@ -1116,7 +1145,7 @@
         if(!res.ok){
           const err = await res.json().catch(()=>({}));
           if(res.status === 404){
-            ghStatus('ℹ️ No tasks.json found in repo yet. Push first!', '#e67e22');
+            ghStatus('ℹ️ No tasks.json found yet. Push first!', '#e67e22');
             toast('ℹ️ No data found — push first');
             return;
           }
@@ -1149,7 +1178,7 @@
         render();
 
         const now = new Date().toLocaleTimeString();
-        ghStatus('✅ Pulled successfully at ' + now + ' (' + tasks.length + ' tasks)', '#16a34a');
+        ghStatus('✅ Pulled at ' + now + ' (' + tasks.length + ' tasks)', '#16a34a');
         toast('⬇️ Tasks pulled from GitHub');
       }catch(e){
         ghStatus('❌ Pull failed: ' + e.message, '#dc2626');
