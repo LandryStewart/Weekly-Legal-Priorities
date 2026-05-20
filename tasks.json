@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T19:58:29.043Z",
+  "exportedAt": "2026-05-20T19:59:35.604Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -8,7 +8,9 @@
     "Hickory Grove",
     "Legacy Fields",
     "Legado",
+    "Lonestar, Phase 1A/1B",
     "Lonestar, Phase 2A",
+    "Lonestar, Phase 2B",
     "Saddleside",
     "TOEC, Phase 10"
   ],
@@ -123,6 +125,26 @@
       "id": 1779307104858,
       "name": "PSA / Land Bank Extension",
       "project": "Alpha Ranch",
+      "priority": "Medium",
+      "status": "Upcoming",
+      "due": "",
+      "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1779307165581,
+      "name": "PSA Amendment",
+      "project": "Lonestar, Phase 1A/1B",
+      "priority": "High",
+      "status": "In Progress",
+      "due": "",
+      "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1779307173983,
+      "name": "Partial Assignment",
+      "project": "Lonestar, Phase 2B",
       "priority": "Medium",
       "status": "Upcoming",
       "due": "",
