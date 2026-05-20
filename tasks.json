@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T20:26:34.714Z",
+  "exportedAt": "2026-05-20T20:32:22.219Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -67,12 +67,13 @@
     {
       "id": 1779304154367,
       "name": "BVRT Separate Instrument",
-      "project": "Legacy Fields",
+      "project": "Saddleside",
       "priority": "High",
       "status": "Upcoming",
       "due": "2026-05-29",
       "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
-      "selected": true
+      "selected": true,
+      "counsel": "Internal Counsel"
     },
     {
       "id": 1779304321339,
