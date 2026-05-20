@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T20:14:22.077Z",
+  "exportedAt": "2026-05-20T20:17:04.155Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -92,8 +92,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Contract in sellers court.",
-      "selected": true,
-      "counsel": "Internal Counsel"
+      "selected": true
     },
     {
       "id": 1779305671029,
@@ -164,6 +163,17 @@
       "status": "Upcoming",
       "due": "",
       "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1779308218781,
+      "name": "PSA",
+      "project": "Lonestar, Phase 2A",
+      "priority": "Critical",
+      "counsel": "Internal Counsel",
+      "status": "In Progress",
+      "due": "2026-05-22",
+      "notes": "Chelsea working on PSA",
       "selected": true
     }
   ]
