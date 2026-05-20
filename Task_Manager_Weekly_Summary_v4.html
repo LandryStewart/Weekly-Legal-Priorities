@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Builder + Weekly Summary</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --navy:#1b2a4a;
+      --accent:#3b82f6;
+      --accent2:#2563eb;
+      --danger:#dc2626;
+      --success:#16a34a;
+      --shadow:0 10px 25px rgba(0,0,0,.08);
+      --shadow2:0 14px 34px rgba(0,0,0,.12);
+      --chip:#eef2ff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Segoe UI, Tahoma, Geneva, Verdana, sans-serif;background:var(--bg);color:var(--text)}
+
+    header{background:linear-gradient(90deg, var(--navy), #243b68);color:#fff;padding:18px 22px}
+    header h1{font-size:1.35rem;font-weight:900;letter-spacing:.2px}
+    header p{margin-top:6px;font-size:.9rem;opacity:.85;max-width:1000px}
+
+    .wrap{max-width:1320px;margin:0 auto;padding:16px}
+    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+    @media(max-width:980px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:16px}
+    .card h2{font-size:1.05rem;color:var(--navy);display:inline-block;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:14px;font-weight:900}
+
+    .formgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:.72rem;font-weight:900;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+    input, select, textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:10px 12px;font-size:.92rem;background:#fff;transition:.15s}
+    input:focus, select:focus, textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+    textarea{min-height:70px;resize:vertical}
+
+    .col-12{grid-column:span 12}
+    .col-8{grid-column:span 8}
+    .col-6{grid-column:span 6}
+    .col-4{grid-column:span 4}
+    .col-3{grid-column:span 3}
+    .col-2{grid-column:span 2}
+    @media(max-width:980px){.col-8,.col-6,.col-4,.col-3,.col-2{grid-column:span 12}}
+
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+    .btn{border:none;border-radius:14px;padding:10px 14px;font-weight:900;font-size:.92rem;cursor:pointer;transition:.15s}
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.primary:hover{background:var(--accent2)}
+    .btn.outline{background:transparent;border:2px solid var(--accent);color:var(--accent)}
+    .btn.outline:hover{background:var(--accent);color:#fff}
+    .btn.danger{background:var(--danger);color:#fff}
+    .btn.danger:hover{filter:brightness(.95)}
+    .btn.success{background:var(--success);color:#fff}
+    .btn.success:hover{filter:brightness(.95)}
+    .btn.sm{padding:7px 10px;border-radius:12px;font-size:.8rem}
+
+    .plusline{display:flex;gap:8px;align-items:center}
+    .plusline button{width:42px;min-width:42px;padding:10px 0}
+
+    .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .stat{background:#fff;border:1px solid var(--border);border-radius:999px;padding:7px 12px;font-size:.82rem;font-weight:900;color:var(--navy)}
+    .stat span{color:var(--accent)}
+
+    .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0 12px}
+    .filters input,.filters select{padding:8px 10px;border-radius:14px;font-size:.86rem}
+
+    table{width:100%;border-collapse:collapse;font-size:.9rem}
+    thead{background:var(--navy);color:#fff}
+    th{padding:12px 10px;text-align:left;white-space:nowrap;user-select:none;cursor:pointer}
+    th:hover{background:#243b68}
+    td{padding:10px;border-bottom:1px solid var(--border);vertical-align:top}
+    tr:hover{background:#f8fbff}
+
+    .badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:.75rem;font-weight:900;background:var(--chip);color:#374151;text-transform:uppercase;letter-spacing:.3px}
+    .muted{color:var(--muted)}
+    .nowrap{white-space:nowrap}
+
+    .empty{display:none;text-align:center;color:var(--muted);padding:26px 10px}
+    .empty .icon{font-size:2rem;display:block;margin-bottom:6px}
+
+    .summaryBox{border:1px solid var(--border);border-radius:16px;background:#fff;padding:14px;max-height:540px;overflow:auto}
+    .summaryBox:empty{display:none}
+
+    .toast{position:fixed;right:18px;bottom:18px;background:var(--navy);color:#fff;padding:12px 14px;border-radius:14px;font-weight:900;box-shadow:var(--shadow2);opacity:0;transform:translateY(12px);transition:.2s;pointer-events:none;z-index:999}
+    .toast.show{opacity:1;transform:translateY(0)}
+
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:998;align-items:center;justify-content:center}
+    .overlay.active{display:flex}
+    .modal{background:#fff;border-radius:18px;border:1px solid var(--border);box-shadow:var(--shadow2);width:92%;max-width:720px;max-height:88vh;overflow:auto;padding:16px}
+    .modal h3{font-size:1rem;color:var(--navy);font-weight:900;margin-bottom:10px}
+    .list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 10px;border:1px solid var(--border);border-radius:14px}
+    .item strong{font-size:.92rem}
+
+    .cb{width:18px;height:18px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📋 Task Builder + Weekly Summary</h1>
+    <p>Create tasks by project, priority (Critical/High/Medium/Low), stage/status (customizable), and an optional due date. Generate a weekly summary you can paste into Outlook.</p>
+  </header>
+
+  <div class="wrap">
+    <div class="grid">
+
+      <!-- LEFT: Tasks -->
+      <div class="card">
+        <h2>➕ Add Task</h2>
+        <div class="formgrid">
+
+          <div class="field col-6">
+            <label>Task Name *</label>
+            <input id="taskName" type="text" placeholder="e.g., Send draft to legal" />
+          </div>
+
+          <div class="field col-6">
+            <label>Project *</label>
+            <div class="plusline">
+              <select id="taskProject"></select>
+              <button class="btn primary" type="button" title="Add project" onclick="toggleInlineProject()">＋</button>
+            </div>
+            <div id="inlineProject" style="display:none;margin-top:8px" class="plusline">
+              <input id="newProject" type="text" placeholder="New project name..." />
+              <button class="btn primary" type="button" onclick="addProjectInline()">Add</button>
+              <button class="btn outline" type="button" onclick="toggleInlineProject()">Cancel</button>
+            </div>
+          </div>
+
+          <div class="field col-4">
+            <label>Priority</label>
+            <select id="taskPriority"></select>
+          </div>
+
+          <div class="field col-4">
+            <label>Stage / Status</label>
+            <select id="taskStatus"></select>
+          </div>
+
+          <div class="field col-4">
+            <label>Due Date (optional)</label>
+            <input id="taskDue" type="date" />
+          </div>
+
+          <div class="field col-12">
+            <label>Notes (optional)</label>
+            <textarea id="taskNotes" placeholder="Any context, blockers, who you're waiting on, etc."></textarea>
+          </div>
+
+        </div>
+
+        <div class="row">
+          <button class="btn primary" type="button" onclick="addTask()">Add Task</button>
+          <button class="btn outline" type="button" onclick="clearForm()">Clear</button>
+          <button class="btn outline" type="button" onclick="openManage()">Manage Projects/Stages</button>
+          <button class="btn outline" type="button" onclick="exportJSON()">Export</button>
+          <button class="btn outline" type="button" onclick="triggerImport()">Import</button>
+          <input id="importFile" type="file" accept="application/json" style="display:none" onchange="importJSON(event)" />
+        </div>
+
+        <div class="stats" aria-label="Stats">
+          <div class="stat">Total: <span id="statTotal">0</span></div>
+          <div class="stat">Upcoming: <span id="statUpcoming">0</span></div>
+          <div class="stat">In Progress: <span id="statInProgress">0</span></div>
+          <div class="stat">Holding Pattern: <span id="statHolding">0</span></div>
+          <div class="stat">Complete: <span id="statComplete">0</span></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:14px 0" />
+
+        <h2 style="margin-bottom:10px">📄 Task List</h2>
+        <div class="filters">
+          <select id="filterProject" onchange="render()"><option value="">All Projects</option></select>
+          <select id="filterPriority" onchange="render()"><option value="">All Priorities</option></select>
+          <select id="filterStatus" onchange="render()"><option value="">All Stages</option></select>
+          <input id="filterSearch" type="text" placeholder="Search..." oninput="render()" />
+        </div>
+
+        <div class="row" style="margin-top:0;margin-bottom:10px">
+          <button class="btn outline sm" type="button" onclick="selectAll(true)">☑ Select All</button>
+          <button class="btn outline sm" type="button" onclick="selectAll(false)">☐ Deselect All</button>
+          <button class="btn outline sm" type="button" onclick="archiveCompleted()">🧹 Archive Completed</button>
+          <span class="muted" style="font-weight:900;font-size:.85rem" id="selCount">0 selected for summary</span>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:38px;">✓</th>
+                <th onclick="sortBy('name')">Task ⇅</th>
+                <th onclick="sortBy('project')">Project ⇅</th>
+                <th onclick="sortBy('priority')">Priority ⇅</th>
+                <th onclick="sortBy('due')">Due ⇅</th>
+                <th onclick="sortBy('status')">Stage ⇅</th>
+                <th>Notes</th>
+                <th style="width:140px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div class="empty" id="empty"><span class="icon">📭</span>No tasks yet. Add one above!</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: GitHub Sync + Weekly Summary -->
+      <div class="card" style="margin-bottom:14px">
+        <h2>☁️ GitHub Sync</h2>
+        <p class="muted" style="margin-bottom:8px;font-size:.88rem">Sync your tasks across devices via GitHub.</p>
+        <p class="muted" style="margin-bottom:10px;font-size:.78rem">Repo: <strong>LandryStewart/Weekly-Legal-Priorities</strong> (main) · File: tasks.json</p>
+
+        <div class="formgrid">
+          <div class="field col-12">
+            <label>Personal Access Token</label>
+            <div class="plusline">
+              <input id="ghTokenInput" type="password" placeholder="ghp_xxxxxxxxxxxx" />
+              <button class="btn primary" type="button" onclick="saveGHToken()">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <button class="btn primary" type="button" onclick="pushToGitHub()">⬆️ Push to GitHub</button>
+          <button class="btn outline" type="button" onclick="pullFromGitHub()">⬇️ Pull from GitHub</button>
+        </div>
+        <div style="margin-top:8px;min-height:22px">
+          <span id="ghStatus" style="font-size:.82rem;font-weight:700"></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📧 Weekly Summary</h2>
+        <p class="muted" style="margin-bottom:10px;font-size:.9rem">Generate a weekly summary and copy it into an email. (Works best in Edge/Chrome.)</p>
+
+        <div class="field" style="max-width:360px">
+          <label>Summary Scope</label>
+          <select id="summaryScope">
+            <option value="selected">Selected tasks only</option>
+            <option value="visible">All visible (current filters)</option>
+            <option value="active">All active (not Complete)</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <button class="btn primary" type="button" onclick="generateSummary()">Generate Weekly Summary</button>
+          <button class="btn success" type="button" onclick="copyRich()">📋 Copy Rich (Outlook)</button>
+          <button class="btn outline" type="button" onclick="copyText()">📝 Copy Plain Text</button>
+          <button class="btn outline" type="button" onclick="downloadImage()">📸 Download as Image</button>
+        </div>
+
+        <div id="summary" class="summaryBox"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Manage Modal -->
+  <div class="overlay" id="manageOverlay">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h3>🧰 Manage Lists</h3>
+        <button class="btn outline sm" type="button" onclick="closeManage()">Close</button>
+      </div>
+      <p class="muted" style="margin:8px 0 12px">Add/remove projects and stages. If you delete a value currently used by tasks, those tasks will be reassigned to a safe default.</p>
+
+      <div class="card" style="box-shadow:none">
+        <h3 style="margin-bottom:10px">Projects</h3>
+        <div class="plusline">
+          <input id="mgrNewProject" type="text" placeholder="Add project..." />
+          <button class="btn primary" type="button" onclick="mgrAdd('project')">Add</button>
+        </div>
+        <div id="mgrProjects" class="list"></div>
+      </div>
+
+      <div class="card" style="box-shadow:none;margin-top:12px">
+        <h3 style="margin-bottom:10px">Stages / Statuses</h3>
+        <div class="plusline">
+          <input id="mgrNewStatus" type="text" placeholder="Add stage/status..." />
+          <button class="btn primary" type="button" onclick="mgrAdd('status')">Add</button>
+        </div>
+        <div id="mgrStatuses" class="list"></div>
+      </div>
+
+      <div class="card" style="box-shadow:none;margin-top:12px">
+        <h3 style="margin-bottom:10px">Priorities</h3>
+        <p class="muted" style="font-size:.9rem">Priorities are fixed to: Critical, High, Medium, Low.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="overlay" id="editOverlay">
+    <div class="modal">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h3>✏️ Edit Task</h3>
+        <button class="btn outline sm" type="button" onclick="closeEdit()">Close</button>
+      </div>
+
+      <div class="formgrid" style="margin-top:10px">
+        <div class="field col-12"><label>Task Name</label><input id="eName" type="text" /></div>
+        <div class="field col-6"><label>Project</label><select id="eProject"></select></div>
+        <div class="field col-6"><label>Priority</label><select id="ePriority"></select></div>
+        <div class="field col-6"><label>Stage / Status</label><select id="eStatus"></select></div>
+        <div class="field col-6"><label>Due Date (optional)</label><input id="eDue" type="date" /></div>
+        <div class="field col-12"><label>Notes</label><textarea id="eNotes"></textarea></div>
+      </div>
+
+      <div class="row">
+        <button class="btn primary" type="button" onclick="saveEdit()">Save</button>
+        <button class="btn outline" type="button" onclick="closeEdit()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    // =====================
+    //  Fresh, new build
+    // =====================
+
+    // Storage keys
+    const KEY = {
+      tasks: 'tbws_tasks_v1',
+      projects: 'tbws_projects_v1',
+      statuses: 'tbws_statuses_v1'
+    };
+
+    // Fixed priorities (per request)
+    const PRIORITIES = ['Critical','High','Medium','Low'];
+
+    // Defaults
+    const DEFAULT_PROJECTS = ['General'];
+    const DEFAULT_STATUSES = ['Upcoming','In Progress','Holding Pattern','Complete'];
+
+    // State
+    let tasks = safeJSON(localStorage.getItem(KEY.tasks), []);
+    let projects = safeJSON(localStorage.getItem(KEY.projects), DEFAULT_PROJECTS.slice());
+    let statuses = safeJSON(localStorage.getItem(KEY.statuses), DEFAULT_STATUSES.slice());
+
+    let sortField = 'due';
+    let sortAsc = true;
+    let editId = null;
+
+    let summaryHTML = '';
+    let summaryText = '';
+
+    // Utils
+    function safeJSON(text, fallback){
+      try{ return text ? JSON.parse(text) : fallback; }catch{ return fallback; }
+    }
+
+    function persist(){
+      localStorage.setItem(KEY.tasks, JSON.stringify(tasks));
+      localStorage.setItem(KEY.projects, JSON.stringify(projects));
+      localStorage.setItem(KEY.statuses, JSON.stringify(statuses));
+    }
+
+    function toast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'), 2400);
+    }
+
+    function esc(s){
+      const d = document.createElement('div');
+      d.textContent = s ?? '';
+      return d.innerHTML;
+    }
+
+    function fmtDate(iso){
+      if(!iso) return '—';
+      const dt = new Date(iso + 'T00:00:00');
+      if(Number.isNaN(dt.getTime())) return '—';
+      return dt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    }
+
+    function weekRange(){
+      const now = new Date();
+      const day = now.getDay(); // 0 Sun..6 Sat
+      const monday = new Date(now);
+      monday.setDate(now.getDate() - (day===0 ? 6 : day-1));
+      const friday = new Date(monday);
+      friday.setDate(monday.getDate() + 4);
+      const opt = {month:'short',day:'numeric',year:'numeric'};
+      return monday.toLocaleDateString('en-US',opt) + ' — ' + friday.toLocaleDateString('en-US',opt);
+    }
+
+    function isCompleteStatus(s){
+      return String(s||'').toLowerCase().trim() === 'complete';
+    }
+
+    // Dropdowns
+    function fillSelect(id, list, withAll=false, allLabel='All'){
+      const sel = document.getElementById(id);
+      const keep = sel.value;
+      sel.innerHTML = withAll ? `<option value="">${allLabel}</option>` : '';
+      list.forEach(v=>{
+        const o = document.createElement('option');
+        o.value = v; o.textContent = v;
+        sel.appendChild(o);
+      });
+      if(keep) sel.value = keep;
+    }
+
+    function fillDropdowns(){
+      fillSelect('taskProject', projects);
+      fillSelect('taskPriority', PRIORITIES);
+      fillSelect('taskStatus', statuses);
+
+      fillSelect('filterProject', projects, true, 'All Projects');
+      fillSelect('filterPriority', PRIORITIES, true, 'All Priorities');
+      fillSelect('filterStatus', statuses, true, 'All Stages');
+
+      fillSelect('eProject', projects);
+      fillSelect('ePriority', PRIORITIES);
+      fillSelect('eStatus', statuses);
+
+      // defaults
+      if(!document.getElementById('taskProject').value) document.getElementById('taskProject').value = projects[0] || 'General';
+      if(!document.getElementById('taskPriority').value) document.getElementById('taskPriority').value = 'Medium';
+      if(!document.getElementById('taskStatus').value) document.getElementById('taskStatus').value = statuses.includes('Upcoming') ? 'Upcoming' : (statuses[0] || 'Upcoming');
+    }
+
+    // Inline project add
+    function toggleInlineProject(){
+      const row = document.getElementById('inlineProject');
+      const isHidden = row.style.display === 'none' || row.style.display === '';
+      row.style.display = isHidden ? 'flex' : 'none';
+      document.getElementById('newProject').value = '';
+      if(isHidden) setTimeout(()=>document.getElementById('newProject').focus(), 0);
+    }
+
+    function addProjectInline(){
+      const val = document.getElementById('newProject').value.trim();
+      if(!val){ toast('⚠️ Enter a project name'); return; }
+      if(!projects.includes(val)){
+        projects.push(val);
+        projects.sort((a,b)=>a.localeCompare(b));
+        persist();
+      }
+      fillDropdowns();
+      document.getElementById('taskProject').value = val;
+      toggleInlineProject();
+      render();
+      toast('✅ Project added');
+    }
+
+    // Tasks CRUD
+    function addTask(){
+      const name = document.getElementById('taskName').value.trim();
+      const project = document.getElementById('taskProject').value;
+      const priority = document.getElementById('taskPriority').value || 'Medium';
+      const status = document.getElementById('taskStatus').value || 'Upcoming';
+      const due = document.getElementById('taskDue').value; // optional
+      const notes = document.getElementById('taskNotes').value.trim();
+
+      if(!name){ toast('⚠️ Task name is required'); return; }
+      if(!project){ toast('⚠️ Project is required'); return; }
+
+      tasks.push({
+        id: Date.now() + Math.floor(Math.random()*1000),
+        name, project, priority, status, due, notes,
+        selected: true
+      });
+
+      persist();
+      clearForm();
+      updateStats();
+      render();
+      toast('✅ Task added');
+    }
+
+    function clearForm(){
+      document.getElementById('taskName').value='';
+      document.getElementById('taskDue').value='';
+      document.getElementById('taskNotes').value='';
+      document.getElementById('taskPriority').value='Medium';
+      document.getElementById('taskStatus').value = statuses.includes('Upcoming') ? 'Upcoming' : (statuses[0] || 'Upcoming');
+    }
+
+    function delTask(id){
+      if(!confirm('Delete this task?')) return;
+      tasks = tasks.filter(t=>t.id!==id);
+      persist();
+      updateStats();
+      render();
+      toast('🗑️ Deleted');
+    }
+
+    function openEdit(id){
+      const t = tasks.find(x=>x.id===id);
+      if(!t) return;
+      editId = id;
+      fillDropdowns();
+      document.getElementById('eName').value = t.name;
+      document.getElementById('eProject').value = t.project;
+      document.getElementById('ePriority').value = t.priority;
+      document.getElementById('eStatus').value = t.status;
+      document.getElementById('eDue').value = t.due || '';
+      document.getElementById('eNotes').value = t.notes || '';
+      document.getElementById('editOverlay').classList.add('active');
+    }
+
+    function closeEdit(){
+      document.getElementById('editOverlay').classList.remove('active');
+      editId = null;
+    }
+
+    function saveEdit(){
+      if(editId===null) return;
+      const t = tasks.find(x=>x.id===editId);
+      if(!t) return;
+
+      t.name = document.getElementById('eName').value.trim();
+      t.project = document.getElementById('eProject').value;
+      t.priority = document.getElementById('ePriority').value;
+      t.status = document.getElementById('eStatus').value;
+      t.due = document.getElementById('eDue').value;
+      t.notes = document.getElementById('eNotes').value.trim();
+
+      persist();
+      closeEdit();
+      updateStats();
+      render();
+      toast('✅ Updated');
+    }
+
+    function toggleSelect(id){
+      const t = tasks.find(x=>x.id===id);
+      if(!t) return;
+      t.selected = !t.selected;
+      persist();
+      updateSelCount();
+    }
+
+    function selectAll(val){
+      const visible = filteredTasks();
+      const ids = new Set(visible.map(v=>v.id));
+      tasks.forEach(t=>{ if(ids.has(t.id)) t.selected = val; });
+      persist();
+      updateSelCount();
+      render();
+    }
+
+    function archiveCompleted(){
+      const before = tasks.length;
+      tasks = tasks.filter(t=>!isCompleteStatus(t.status));
+      const removed = before - tasks.length;
+      persist();
+      updateStats();
+      render();
+      toast(removed ? `🧹 Archived ${removed} completed task(s)` : 'No completed tasks to archive');
+    }
+
+    // Sorting & filtering
+    function sortBy(field){
+      if(sortField===field) sortAsc = !sortAsc;
+      else { sortField = field; sortAsc = true; }
+      render();
+    }
+
+    function filteredTasks(){
+      const fp = document.getElementById('filterProject').value;
+      const fpr = document.getElementById('filterPriority').value;
+      const fs = document.getElementById('filterStatus').value;
+      const q = document.getElementById('filterSearch').value.toLowerCase();
+
+      const prOrder = {};
+      PRIORITIES.forEach((p,i)=>prOrder[p]=i);
+
+      let list = tasks.filter(t=>{
+        if(fp && t.project!==fp) return false;
+        if(fpr && t.priority!==fpr) return false;
+        if(fs && t.status!==fs) return false;
+        if(q){
+          const hay = (t.name + ' ' + (t.notes||'') + ' ' + t.project + ' ' + t.priority + ' ' + t.status).toLowerCase();
+          if(!hay.includes(q)) return false;
+        }
+        return true;
+      });
+
+      list.sort((a,b)=>{
+        let va, vb;
+        if(sortField==='priority'){ va = prOrder[a.priority] ?? 999; vb = prOrder[b.priority] ?? 999; }
+        else if(sortField==='name'){ va = (a.name||'').toLowerCase(); vb = (b.name||'').toLowerCase(); }
+        else if(sortField==='project'){ va = (a.project||'').toLowerCase(); vb = (b.project||'').toLowerCase(); }
+        else if(sortField==='due'){ va = a.due || '9999-12-31'; vb = b.due || '9999-12-31'; }
+        else if(sortField==='status'){ va = (a.status||'').toLowerCase(); vb = (b.status||'').toLowerCase(); }
+        else { va = a.name; vb = b.name; }
+
+        if(va<vb) return sortAsc ? -1 : 1;
+        if(va>vb) return sortAsc ? 1 : -1;
+        return 0;
+      });
+
+      return list;
+    }
+
+    // Render
+    function updateSelCount(){
+      const c = tasks.filter(t=>t.selected).length;
+      document.getElementById('selCount').textContent = `${c} selected for summary`;
+    }
+
+    function render(){
+      fillDropdowns();
+      updateSelCount();
+
+      const list = filteredTasks();
+      const tbody = document.getElementById('tbody');
+      const empty = document.getElementById('empty');
+
+      if(list.length===0){
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      tbody.innerHTML = list.map(t=>{
+        const notes = t.notes ? esc(t.notes) : '<span class="muted">—</span>';
+        const due = fmtDate(t.due);
+        return `
+          <tr>
+            <td class="nowrap"><input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" /></td>
+            <td><strong>${esc(t.name)}</strong></td>
+            <td>${esc(t.project)}</td>
+            <td><span class="badge">${esc(t.priority)}</span></td>
+            <td class="nowrap">${due}</td>
+            <td><span class="badge">${esc(t.status)}</span></td>
+            <td title="${esc(t.notes||'')}">${notes}</td>
+            <td class="nowrap">
+              <button class="btn outline sm" type="button" onclick="openEdit(${t.id})">Edit</button>
+              <button class="btn danger sm" type="button" onclick="delTask(${t.id})">Delete</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function updateStats(){
+      const total = tasks.length;
+      const count = (label)=>tasks.filter(t=>String(t.status||'')===label).length;
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statUpcoming').textContent = count('Upcoming');
+      document.getElementById('statInProgress').textContent = count('In Progress');
+      document.getElementById('statHolding').textContent = count('Holding Pattern');
+      document.getElementById('statComplete').textContent = count('Complete');
+    }
+
+    // Weekly summary
+    function buildSummaryList(scope){
+      if(scope==='selected') return tasks.filter(t=>t.selected);
+      if(scope==='visible') return filteredTasks();
+      if(scope==='active') return tasks.filter(t=>!isCompleteStatus(t.status));
+      return tasks.filter(t=>t.selected);
+    }
+
+    function generateSummary(){
+      const scope = document.getElementById('summaryScope').value;
+      const chosen = buildSummaryList(scope);
+      if(chosen.length===0){ toast('⚠️ No tasks to summarize for that scope'); return; }
+
+      // Group by project
+      const byProject = {};
+      chosen.forEach(t=>{
+        const p = t.project || 'General';
+        if(!byProject[p]) byProject[p] = [];
+        byProject[p].push(t);
+      });
+
+      const prOrder = {}; PRIORITIES.forEach((p,i)=>prOrder[p]=i);
+      Object.keys(byProject).forEach(p=>{
+        byProject[p].sort((a,b)=>{
+          const pa = prOrder[a.priority] ?? 999;
+          const pb = prOrder[b.priority] ?? 999;
+          if(pa!==pb) return pa-pb;
+          const da = a.due || '9999-12-31';
+          const db = b.due || '9999-12-31';
+          if(da!==db) return da<db ? -1 : 1;
+          return (a.name||'').localeCompare(b.name||'');
+        });
+      });
+
+      const projectsSorted = Object.keys(byProject).sort((a,b)=>a.localeCompare(b));
+      const range = weekRange();
+
+      // Basic counts by stage
+      const counts = {};
+      chosen.forEach(t=>{ counts[t.status] = (counts[t.status]||0) + 1; });
+
+      // Outlook-friendly HTML
+      let html = `<div style="font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;max-width:760px;margin:0 auto;">`;
+      html += `<table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:3px solid #1b2a4a;margin-bottom:16px;"><tr><td style="padding:16px 0;">`;
+      html += `<h1 style="margin:0;font-size:22px;color:#1b2a4a;">📋 Weekly Task Summary</h1>`;
+      html += `<p style="margin:4px 0 0;font-size:14px;color:#6c757d;">${range}</p>`;
+      html += `</td></tr></table>`;
+
+      const chips = Object.keys(counts).sort((a,b)=>a.localeCompare(b)).map(k=>`${k}: ${counts[k]}`).join(' · ');
+      html += `<p style="margin:0 0 14px;font-size:13px;color:#6c757d;"><strong>${chosen.length}</strong> tasks · ${esc(chips)}</p>`;
+
+      // ── Executive Summary: simple text sorted by due date ──
+      const prOrderExec = {};
+      PRIORITIES.forEach((p,i)=> prOrderExec[p]=i);
+      const sortedAll = [...chosen].sort((a,b)=>{
+        const da = a.due || '9999-12-31';
+        const db = b.due || '9999-12-31';
+        if(da !== db) return da < db ? -1 : 1;
+        const pa = prOrderExec[a.priority] ?? 999;
+        const pb = prOrderExec[b.priority] ?? 999;
+        if(pa !== pb) return pa - pb;
+        return (a.name||'').localeCompare(b.name||'');
+      });
+
+      html += `<div style="border-left:4px solid #e67e22;padding:10px 14px;margin:4px 0 20px;background:#fffaf5;border-radius:0 10px 10px 0;">`;
+      html += `<h2 style="font-size:16px;color:#1b2a4a;margin:0 0 10px;font-weight:800;">🎯 Executive Summary — Tasks by Due Date</h2>`;
+      sortedAll.forEach((t,i)=>{
+        html += `<p style="margin:2px 0 6px 4px;font-size:13px;line-height:1.5;"><strong>${i+1}.</strong> ${esc(t.name)} — <em>${esc(t.project||'General')}</em> | Priority: ${esc(t.priority)} | Due: ${fmtDate(t.due)} | Stage: <strong>${esc(t.status)}</strong></p>`;
+      });
+      html += `</div>`;
+      html += `<hr style="border:none;border-top:2px solid #dee2e6;margin:0 0 18px;">`;
+
+
+      projectsSorted.forEach(proj=>{
+        html += `<h2 style="font-size:16px;color:#1b2a4a;border-bottom:2px solid #3b82f6;padding-bottom:6px;margin:18px 0 10px;font-weight:800;">📁 ${esc(proj)}</h2>`;
+        html += `<table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse;font-size:13px;margin-bottom:10px;">`;
+        html += `<tr style="background:#1b2a4a;color:#ffffff;">`+
+                `<th style="text-align:left;padding:10px 8px;border:1px solid #1b2a4a;">Task</th>`+
+                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:90px;">Priority</th>`+
+                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:110px;">Due</th>`+
+                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:140px;">Stage</th>`+
+                `<th style="text-align:left;padding:10px 8px;border:1px solid #1b2a4a;">Notes</th>`+
+                `</tr>`;
+
+        byProject[proj].forEach((t,i)=>{
+          const bg = i%2===0 ? '#ffffff' : '#f8f9fa';
+          html += `<tr style="background:${bg};">`;
+          html += `<td style="padding:8px;border:1px solid #dee2e6;font-weight:600;">${esc(t.name)}</td>`;
+          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;">${esc(t.priority)}</td>`;
+          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;">${fmtDate(t.due)}</td>`;
+          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;font-weight:700;">${esc(t.status)}</td>`;
+          html += `<td style="padding:8px;border:1px solid #dee2e6;color:#6c757d;">${t.notes ? esc(t.notes) : '—'}</td>`;
+          html += `</tr>`;
+        });
+
+        html += `</table>`;
+      });
+
+      html += `<p style="font-size:11px;color:#adb5bd;margin-top:18px;border-top:1px solid #dee2e6;padding-top:10px;">Generated by Task Builder + Weekly Summary</p>`;
+      html += `</div>`;
+
+      summaryHTML = html;
+      document.getElementById('summary').innerHTML = html;
+
+      // Plain text
+      let txt = `WEEKLY TASK SUMMARY\n${range}\n`;
+      txt += `${chosen.length} tasks · ${chips}\n`;
+      txt += `${'═'.repeat(60)}\n\n`;
+
+      // ── Executive Summary in plain text ──
+      txt += `🎯 EXECUTIVE SUMMARY — TASKS BY DUE DATE\n`;
+      txt += `${'─'.repeat(50)}\n`;
+      sortedAll.forEach((t,i)=>{
+        const num = String(i+1).padStart(2,' ');
+        txt += `${num}. ${t.name} — ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+      });
+      txt += `${'═'.repeat(60)}\n\n`;
+
+      projectsSorted.forEach(proj=>{
+        txt += `▸ ${proj.toUpperCase()}\n${'─'.repeat(40)}\n`;
+        byProject[proj].forEach(t=>{
+          txt += ` • ${t.name}\n`;
+          txt += `   Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+          if(t.notes) txt += `   Notes: ${t.notes}\n`;
+          txt += `\n`;
+        });
+      });
+      summaryText = txt;
+
+      toast('✅ Summary generated');
+    }
+
+    // Clipboard
+    async function copyRich(){
+      if(!summaryHTML){ toast('⚠️ Generate a summary first'); return; }
+
+      // Modern clipboard (best)
+      try{
+        const item = new ClipboardItem({
+          'text/html': new Blob([summaryHTML], {type:'text/html'}),
+          'text/plain': new Blob([summaryText || stripHTML(summaryHTML)], {type:'text/plain'})
+        });
+        await navigator.clipboard.write([item]);
+        toast('📋 Copied rich HTML — paste into Outlook');
+        return;
+      } catch(e){
+        // fallback below
+      }
+
+      // Fallback: copy via selection
+      try{
+        const holder = document.createElement('div');
+        holder.contentEditable = 'true';
+        holder.style.position = 'fixed';
+        holder.style.left = '-9999px';
+        holder.style.top = '0';
+        holder.innerHTML = summaryHTML;
+        document.body.appendChild(holder);
+
+        const range = document.createRange();
+        range.selectNodeContents(holder);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        document.body.removeChild(holder);
+        toast('📋 Copied (fallback) — paste into Outlook');
+      } catch(e){
+        await copyText();
+      }
+    }
+
+    async function copyText(){
+      const txt = summaryText || 'Generate a summary first.';
+      try{
+        await navigator.clipboard.writeText(txt);
+        toast('📝 Copied plain text');
+      } catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        toast('📝 Copied plain text (fallback)');
+      }
+    }
+
+        async function downloadImage(){
+      const summaryEl = document.getElementById('summary');
+      if(!summaryEl || !summaryEl.innerHTML.trim()){ toast('⚠️ Generate a summary first'); return; }
+      const origMaxH = summaryEl.style.maxHeight;
+      const origOverflow = summaryEl.style.overflow;
+      summaryEl.style.maxHeight = 'none';
+      summaryEl.style.overflow = 'visible';
+      try{
+        const canvas = await html2canvas(summaryEl, {scale:2, backgroundColor:'#ffffff', useCORS:true, scrollY: -window.scrollY});
+        const link = document.createElement('a');
+        link.download = 'weekly-summary.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        toast('📸 Image downloaded');
+      }catch(e){ toast('⚠️ Could not generate image: '+e.message); }
+      summaryEl.style.maxHeight = origMaxH;
+      summaryEl.style.overflow = origOverflow;
+    }
+
+    function stripHTML(html){
+      const d = document.createElement('div');
+      d.innerHTML = html;
+      return d.textContent || d.innerText || '';
+    }
+
+    // Manage modal
+    function openManage(){
+      renderManage();
+      document.getElementById('manageOverlay').classList.add('active');
+    }
+
+    function closeManage(){
+      document.getElementById('manageOverlay').classList.remove('active');
+    }
+
+    function renderManage(){
+      const pWrap = document.getElementById('mgrProjects');
+      pWrap.innerHTML = (projects.length ? projects : ['']).map(p=>{
+        if(!p) return `<div class="muted">No projects</div>`;
+        return `<div class="item"><strong>${esc(p)}</strong><button class="btn danger sm" type="button" onclick="mgrRemove('project','${p.replace(/'/g,"\\'")}')">Remove</button></div>`;
+      }).join('');
+
+      const sWrap = document.getElementById('mgrStatuses');
+      sWrap.innerHTML = (statuses.length ? statuses : ['']).map(s=>{
+        if(!s) return `<div class="muted">No stages</div>`;
+        return `<div class="item"><strong>${esc(s)}</strong><button class="btn danger sm" type="button" onclick="mgrRemove('status','${s.replace(/'/g,"\\'")}')">Remove</button></div>`;
+      }).join('');
+    }
+
+    function mgrAdd(type){
+      if(type==='project'){
+        const val = document.getElementById('mgrNewProject').value.trim();
+        if(!val) return;
+        if(!projects.includes(val)){
+          projects.push(val);
+          projects.sort((a,b)=>a.localeCompare(b));
+        }
+        document.getElementById('mgrNewProject').value='';
+      }
+      if(type==='status'){
+        const val = document.getElementById('mgrNewStatus').value.trim();
+        if(!val) return;
+        if(!statuses.includes(val)) statuses.push(val);
+        document.getElementById('mgrNewStatus').value='';
+      }
+      persist();
+      fillDropdowns();
+      renderManage();
+      render();
+      updateStats();
+      toast('✅ Added');
+    }
+
+    function mgrRemove(type, val){
+      if(!confirm(`Remove ${type}: ${val}?`)) return;
+
+      if(type==='project'){
+        if(projects.length<=1){ toast('⚠️ Keep at least one project'); return; }
+        projects = projects.filter(p=>p!==val);
+        const fallback = projects[0] || 'General';
+        tasks.forEach(t=>{ if(t.project===val) t.project = fallback; });
+      }
+
+      if(type==='status'){
+        if(statuses.length<=1){ toast('⚠️ Keep at least one stage'); return; }
+        statuses = statuses.filter(s=>s!==val);
+        const fallback = statuses[0] || 'Upcoming';
+        tasks.forEach(t=>{ if(t.status===val) t.status = fallback; });
+      }
+
+      persist();
+      fillDropdowns();
+      renderManage();
+      render();
+      updateStats();
+      toast('Removed');
+    }
+
+    // Export / Import
+    function exportJSON(){
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        projects,
+        statuses,
+        tasks
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'task-builder-weekly-summary.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast('⬇️ Exported');
+    }
+
+    function triggerImport(){
+      document.getElementById('importFile').click();
+    }
+
+    function importJSON(event){
+      const file = event.target.files && event.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try{
+          const data = JSON.parse(reader.result);
+          if(Array.isArray(data.projects)) projects = data.projects;
+          if(Array.isArray(data.statuses)) statuses = data.statuses;
+          if(Array.isArray(data.tasks)) tasks = data.tasks;
+
+          // sanitize
+          if(!projects || !projects.length) projects = DEFAULT_PROJECTS.slice();
+          if(!statuses || !statuses.length) statuses = DEFAULT_STATUSES.slice();
+
+          tasks = (tasks||[]).map(t=>({
+            id: t.id ?? (Date.now()+Math.floor(Math.random()*1000)),
+            name: String(t.name||'').trim(),
+            project: t.project || (projects[0]||'General'),
+            priority: PRIORITIES.includes(t.priority) ? t.priority : 'Medium',
+            status: t.status || (statuses[0]||'Upcoming'),
+            due: t.due || '',
+            notes: t.notes || '',
+            selected: (t.selected !== undefined) ? !!t.selected : true
+          })).filter(t=>t.name.length);
+
+          persist();
+          fillDropdowns();
+          updateStats();
+          render();
+          toast('✅ Imported');
+        }catch(e){
+          toast('⚠️ Could not import');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // ===================== GitHub Sync =====================
+    const GH_OWNER = 'LandryStewart';
+    const GH_REPO = 'Weekly-Legal-Priorities';
+    const GH_BRANCH = 'main';
+    const GH_FILE = 'tasks.json';
+    const GH_TOKEN_KEY = 'tbws_gh_token';
+
+    function ghStatus(msg, color){
+      const el = document.getElementById('ghStatus');
+      el.textContent = msg;
+      el.style.color = color || '#6b7280';
+    }
+
+    function saveGHToken(){
+      const val = document.getElementById('ghTokenInput').value.trim();
+      if(!val){ toast('⚠️ Enter a token'); return; }
+      localStorage.setItem(GH_TOKEN_KEY, val);
+      toast('✅ Token saved');
+      ghStatus('Token saved ✓', '#16a34a');
+    }
+
+    function loadGHToken(){
+      const t = localStorage.getItem(GH_TOKEN_KEY) || '';
+      document.getElementById('ghTokenInput').value = t;
+    }
+
+    function getGHToken(){
+      return localStorage.getItem(GH_TOKEN_KEY) || '';
+    }
+
+    async function pushToGitHub(){
+      const token = getGHToken();
+      if(!token){ toast('⚠️ Save your GitHub token first'); ghStatus('No token configured', '#dc2626'); return; }
+
+      const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`;
+
+      const payload = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        projects,
+        statuses,
+        tasks
+      };
+      const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+
+      ghStatus('⏳ Pushing to GitHub...', '#3b82f6');
+
+      try{
+        // Check if file already exists (need SHA to update)
+        let sha = null;
+        try{
+          const getRes = await fetch(apiUrl + '?ref=' + GH_BRANCH, {
+            headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+          });
+          if(getRes.ok){
+            const getData = await getRes.json();
+            sha = getData.sha;
+          }
+        }catch(e){ /* file doesn't exist yet, that's fine */ }
+
+        const body = {
+          message: 'Update tasks - ' + new Date().toLocaleString(),
+          content: content,
+          branch: GH_BRANCH
+        };
+        if(sha) body.sha = sha;
+
+        const putRes = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/vnd.github.v3+json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+
+        if(!putRes.ok){
+          const err = await putRes.json().catch(()=>({}));
+          throw new Error(err.message || ('HTTP ' + putRes.status));
+        }
+
+        const now = new Date().toLocaleTimeString();
+        ghStatus('✅ Pushed successfully at ' + now, '#16a34a');
+        toast('⬆️ Tasks pushed to GitHub');
+      }catch(e){
+        ghStatus('❌ Push failed: ' + e.message, '#dc2626');
+        toast('⚠️ Push failed');
+      }
+    }
+
+    async function pullFromGitHub(){
+      const token = getGHToken();
+      if(!token){ toast('⚠️ Save your GitHub token first'); ghStatus('No token configured', '#dc2626'); return; }
+
+      const apiUrl = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}?ref=${GH_BRANCH}`;
+
+      ghStatus('⏳ Pulling from GitHub...', '#3b82f6');
+
+      try{
+        const res = await fetch(apiUrl, {
+          headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github.v3+json' }
+        });
+
+        if(!res.ok){
+          const err = await res.json().catch(()=>({}));
+          if(res.status === 404){
+            ghStatus('ℹ️ No tasks.json found in repo yet. Push first!', '#e67e22');
+            toast('ℹ️ No data found — push first');
+            return;
+          }
+          throw new Error(err.message || ('HTTP ' + res.status));
+        }
+
+        const fileData = await res.json();
+        const decoded = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+        const data = JSON.parse(decoded);
+
+        // Load data with same sanitization as importJSON
+        if(Array.isArray(data.projects) && data.projects.length) projects = data.projects;
+        if(Array.isArray(data.statuses) && data.statuses.length) statuses = data.statuses;
+        if(Array.isArray(data.tasks)){
+          tasks = data.tasks.map(t=>({
+            id: t.id ?? (Date.now()+Math.floor(Math.random()*1000)),
+            name: String(t.name||'').trim(),
+            project: t.project || (projects[0]||'General'),
+            priority: PRIORITIES.includes(t.priority) ? t.priority : 'Medium',
+            status: t.status || (statuses[0]||'Upcoming'),
+            due: t.due || '',
+            notes: t.notes || '',
+            selected: (t.selected !== undefined) ? !!t.selected : true
+          })).filter(t=>t.name.length);
+        }
+
+        persist();
+        fillDropdowns();
+        updateStats();
+        render();
+
+        const now = new Date().toLocaleTimeString();
+        ghStatus('✅ Pulled successfully at ' + now + ' (' + tasks.length + ' tasks)', '#16a34a');
+        toast('⬇️ Tasks pulled from GitHub');
+      }catch(e){
+        ghStatus('❌ Pull failed: ' + e.message, '#dc2626');
+        toast('⚠️ Pull failed');
+      }
+    }
+
+    // Init
+    (function init(){
+      // ensure defaults
+      if(!projects || !projects.length) projects = DEFAULT_PROJECTS.slice();
+      if(!statuses || !statuses.length) statuses = DEFAULT_STATUSES.slice();
+
+      fillDropdowns();
+      updateStats();
+      render();
+      loadGHToken();
+    })();
+
+  </script>
+</body>
+</html>
