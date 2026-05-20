@@ -105,13 +105,84 @@
       from{opacity:0;transform:translateY(-10px)}
       to{opacity:1;transform:translateY(0)}
     }
+
+    /* Accordion task cards */
+    .task-card{
+      border:1px solid var(--border);
+      border-radius:14px;
+      margin-bottom:8px;
+      background:#fff;
+      transition:box-shadow .2s, border-color .2s;
+      cursor:pointer;
+      overflow:hidden;
+    }
+    .task-card:hover{
+      box-shadow:0 4px 12px rgba(0,0,0,.07);
+      border-color:var(--accent);
+    }
+    .task-card-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      flex-wrap:wrap;
+    }
+    .task-card-body{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.35s ease, padding 0.35s ease;
+      padding:0 14px;
+    }
+    .task-card.expanded .task-card-body{
+      max-height:400px;
+      padding:12px 14px 14px;
+      border-top:1px solid var(--border);
+    }
+    .task-card .chevron{
+      font-size:.85rem;
+      color:var(--muted);
+      transition:transform .25s;
+      margin-left:auto;
+      flex-shrink:0;
+    }
+    .task-card.expanded .chevron{
+      transform:rotate(90deg);
+    }
+    .sort-bar{
+      display:flex;
+      gap:6px;
+      align-items:center;
+      margin-bottom:10px;
+      font-size:.82rem;
+      flex-wrap:wrap;
+    }
+    .sort-bar span.sort-label{
+      font-weight:900;
+      color:var(--navy);
+      margin-right:4px;
+    }
+    .sort-bar span.sort-link{
+      color:var(--accent);
+      cursor:pointer;
+      font-weight:700;
+      padding:3px 8px;
+      border-radius:8px;
+      transition:.15s;
+    }
+    .sort-bar span.sort-link:hover{
+      background:var(--chip);
+    }
+    .sort-bar span.sort-link.active{
+      background:var(--accent);
+      color:#fff;
+    }
   </style>
 </head>
 <body>
   <header style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;position:relative;">
     <div style="flex:1">
       <h1>📋 Task Builder + Weekly Summary</h1>
-      <p>Create tasks by project, priority (Critical/High/Medium/Low), stage/status (customizable), and an optional due date. Generate a weekly summary you can paste into Outlook.</p>
+      <p>Create tasks by project, counsel type (Internal/External), priority, stage/status (customizable), and an optional due date. Generate a weekly summary you can paste into Outlook.</p>
     </div>
     <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;margin-top:2px;flex-shrink:0;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">⚙️</button>
   </header>
@@ -165,17 +236,22 @@
             </div>
           </div>
 
-          <div class="field col-4">
+          <div class="field col-3">
             <label>Priority</label>
             <select id="taskPriority"></select>
           </div>
 
-          <div class="field col-4">
+          <div class="field col-3">
+            <label>Counsel Type</label>
+            <select id="taskCounsel"></select>
+          </div>
+
+          <div class="field col-3">
             <label>Stage / Status</label>
             <select id="taskStatus"></select>
           </div>
 
-          <div class="field col-4">
+          <div class="field col-3">
             <label>Due Date (optional)</label>
             <input id="taskDue" type="date" />
           </div>
@@ -210,6 +286,7 @@
         <div class="filters">
           <select id="filterProject" onchange="render()"><option value="">All Projects</option></select>
           <select id="filterPriority" onchange="render()"><option value="">All Priorities</option></select>
+          <select id="filterCounsel" onchange="render()"><option value="">All Counsel Types</option></select>
           <select id="filterStatus" onchange="render()"><option value="">All Stages</option></select>
           <input id="filterSearch" type="text" placeholder="Search..." oninput="render()" />
         </div>
@@ -221,30 +298,26 @@
           <span class="muted" style="font-weight:900;font-size:.85rem" id="selCount">0 selected for summary</span>
         </div>
 
-        <div style="overflow-x:auto">
-          <table>
-            <thead>
-              <tr>
-                <th style="width:38px;">✓</th>
-                <th onclick="sortBy('name')">Task ⇅</th>
-                <th onclick="sortBy('project')">Project ⇅</th>
-                <th onclick="sortBy('priority')">Priority ⇅</th>
-                <th onclick="sortBy('due')">Due ⇅</th>
-                <th onclick="sortBy('status')">Stage ⇅</th>
-                <th>Notes</th>
-                <th style="width:140px;">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-          </table>
-          <div class="empty" id="empty"><span class="icon">📭</span>No tasks yet. Add one above!</div>
+        <!-- Sort bar -->
+        <div class="sort-bar" id="sortBar">
+          <span class="sort-label">Sort by:</span>
+          <span class="sort-link active" data-field="due" onclick="sortBy('due')">Due ⇅</span>
+          <span class="sort-link" data-field="name" onclick="sortBy('name')">Name ⇅</span>
+          <span class="sort-link" data-field="project" onclick="sortBy('project')">Project ⇅</span>
+          <span class="sort-link" data-field="priority" onclick="sortBy('priority')">Priority ⇅</span>
+          <span class="sort-link" data-field="counsel" onclick="sortBy('counsel')">Counsel ⇅</span>
+          <span class="sort-link" data-field="status" onclick="sortBy('status')">Stage ⇅</span>
         </div>
+
+        <!-- Accordion task cards -->
+        <div id="taskCards"></div>
+        <div class="empty" id="empty"><span class="icon">📭</span>No tasks yet. Add one above!</div>
       </div>
 
       <!-- RIGHT: Weekly Summary -->
       <div class="card">
         <h2>📧 Weekly Summary</h2>
-        <p class="muted" style="margin-bottom:10px;font-size:.9rem">Generate a weekly summary and copy it into an email. (Works best in Edge/Chrome.)</p>
+        <p class="muted" style="margin-bottom:10px;font-size:.9rem">Generate a weekly summary and copy it into an email or download as PDF.</p>
 
         <div class="field" style="max-width:360px">
           <label>Summary Scope</label>
@@ -257,9 +330,8 @@
 
         <div class="row">
           <button class="btn primary" type="button" onclick="generateSummary()">Generate Weekly Summary</button>
-          <button class="btn success" type="button" onclick="copyRich()">📋 Copy Rich (Outlook)</button>
-          <button class="btn outline" type="button" onclick="copyText()">📝 Copy Plain Text</button>
-          <button class="btn outline" type="button" onclick="downloadImage()">📸 Download as Image</button>
+          <button class="btn outline" type="button" onclick="copyText()">📋 Copy as Plain Text</button>
+          <button class="btn outline" type="button" onclick="downloadPDF()">📄 Download as PDF</button>
         </div>
 
         <div id="summary" class="summaryBox"></div>
@@ -314,6 +386,7 @@
         <div class="field col-12"><label>Task Name</label><input id="eName" type="text" /></div>
         <div class="field col-6"><label>Project</label><select id="eProject"></select></div>
         <div class="field col-6"><label>Priority</label><select id="ePriority"></select></div>
+        <div class="field col-6"><label>Counsel Type</label><select id="eCounsel"></select></div>
         <div class="field col-6"><label>Stage / Status</label><select id="eStatus"></select></div>
         <div class="field col-6"><label>Due Date (optional)</label><input id="eDue" type="date" /></div>
         <div class="field col-12"><label>Notes</label><textarea id="eNotes"></textarea></div>
@@ -328,7 +401,7 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
   <script>
     // =====================
     //  Fresh, new build
@@ -343,6 +416,7 @@
 
     // Fixed priorities (per request)
     const PRIORITIES = ['Critical','High','Medium','Low'];
+    const COUNSEL_TYPES = ['Internal Counsel','External Counsel'];
 
     // Defaults
     const DEFAULT_PROJECTS = ['General'];
@@ -359,6 +433,14 @@
 
     let summaryHTML = '';
     let summaryText = '';
+    let expandedCards = new Set();
+
+    const PRIORITY_COLORS = {
+      'Critical': '#fecaca',
+      'High': '#fed7aa',
+      'Medium': '#eef2ff',
+      'Low': '#dcfce7'
+    };
 
     // Utils
     function safeJSON(text, fallback){
@@ -431,6 +513,9 @@
       fillSelect('eProject', projects);
       fillSelect('ePriority', PRIORITIES);
       fillSelect('eStatus', statuses);
+      fillSelect('taskCounsel', COUNSEL_TYPES);
+      fillSelect('filterCounsel', COUNSEL_TYPES, true, 'All Counsel Types');
+      fillSelect('eCounsel', COUNSEL_TYPES);
 
       // defaults
       if(!document.getElementById('taskProject').value) document.getElementById('taskProject').value = projects[0] || 'General';
@@ -467,6 +552,7 @@
       const name = document.getElementById('taskName').value.trim();
       const project = document.getElementById('taskProject').value;
       const priority = document.getElementById('taskPriority').value || 'Medium';
+      const counsel = document.getElementById('taskCounsel').value || 'Internal Counsel';
       const status = document.getElementById('taskStatus').value || 'Upcoming';
       const due = document.getElementById('taskDue').value; // optional
       const notes = document.getElementById('taskNotes').value.trim();
@@ -476,7 +562,7 @@
 
       tasks.push({
         id: Date.now() + Math.floor(Math.random()*1000),
-        name, project, priority, status, due, notes,
+        name, project, priority, counsel, status, due, notes,
         selected: true
       });
 
@@ -492,12 +578,14 @@
       document.getElementById('taskDue').value='';
       document.getElementById('taskNotes').value='';
       document.getElementById('taskPriority').value='Medium';
+      document.getElementById('taskCounsel').value='Internal Counsel';
       document.getElementById('taskStatus').value = statuses.includes('Upcoming') ? 'Upcoming' : (statuses[0] || 'Upcoming');
     }
 
     function delTask(id){
       if(!confirm('Delete this task?')) return;
       tasks = tasks.filter(t=>t.id!==id);
+      expandedCards.delete(id);
       persist();
       updateStats();
       render();
@@ -512,6 +600,7 @@
       document.getElementById('eName').value = t.name;
       document.getElementById('eProject').value = t.project;
       document.getElementById('ePriority').value = t.priority;
+      document.getElementById('eCounsel').value = t.counsel || 'Internal Counsel';
       document.getElementById('eStatus').value = t.status;
       document.getElementById('eDue').value = t.due || '';
       document.getElementById('eNotes').value = t.notes || '';
@@ -531,6 +620,7 @@
       t.name = document.getElementById('eName').value.trim();
       t.project = document.getElementById('eProject').value;
       t.priority = document.getElementById('ePriority').value;
+      t.counsel = document.getElementById('eCounsel').value;
       t.status = document.getElementById('eStatus').value;
       t.due = document.getElementById('eDue').value;
       t.notes = document.getElementById('eNotes').value.trim();
@@ -569,10 +659,28 @@
       toast(removed ? `🧹 Archived ${removed} completed task(s)` : 'No completed tasks to archive');
     }
 
+
+    // Toggle card expand/collapse
+    function toggleCard(id, event){
+      if(event && event.target && (event.target.classList.contains('cb') || event.target.tagName === 'INPUT')) return;
+      if(expandedCards.has(id)){
+        expandedCards.delete(id);
+      } else {
+        expandedCards.add(id);
+      }
+      const cardEl = document.getElementById('card-' + id);
+      if(cardEl){
+        cardEl.classList.toggle('expanded', expandedCards.has(id));
+      }
+    }
+
     // Sorting & filtering
     function sortBy(field){
       if(sortField===field) sortAsc = !sortAsc;
       else { sortField = field; sortAsc = true; }
+      document.querySelectorAll('.sort-bar .sort-link').forEach(el=>{
+        el.classList.toggle('active', el.dataset.field === field);
+      });
       render();
     }
 
@@ -580,6 +688,7 @@
       const fp = document.getElementById('filterProject').value;
       const fpr = document.getElementById('filterPriority').value;
       const fs = document.getElementById('filterStatus').value;
+      const fc = document.getElementById('filterCounsel').value;
       const q = document.getElementById('filterSearch').value.toLowerCase();
 
       const prOrder = {};
@@ -589,6 +698,7 @@
         if(fp && t.project!==fp) return false;
         if(fpr && t.priority!==fpr) return false;
         if(fs && t.status!==fs) return false;
+        if(fc && t.counsel!==fc) return false;
         if(q){
           const hay = (t.name + ' ' + (t.notes||'') + ' ' + t.project + ' ' + t.priority + ' ' + t.status).toLowerCase();
           if(!hay.includes(q)) return false;
@@ -602,7 +712,8 @@
         else if(sortField==='name'){ va = (a.name||'').toLowerCase(); vb = (b.name||'').toLowerCase(); }
         else if(sortField==='project'){ va = (a.project||'').toLowerCase(); vb = (b.project||'').toLowerCase(); }
         else if(sortField==='due'){ va = a.due || '9999-12-31'; vb = b.due || '9999-12-31'; }
-        else if(sortField==='status'){ va = (a.status||'').toLowerCase(); vb = (b.status||'').toLowerCase(); }
+        else if(sortField==='counsel'){ va = (a.counsel||'').toLowerCase(); vb = (b.counsel||'').toLowerCase(); }
+      else if(sortField==='status'){ va = (a.status||'').toLowerCase(); vb = (b.status||'').toLowerCase(); }
         else { va = a.name; vb = b.name; }
 
         if(va<vb) return sortAsc ? -1 : 1;
@@ -624,35 +735,72 @@
       updateSelCount();
 
       const list = filteredTasks();
-      const tbody = document.getElementById('tbody');
+      const container = document.getElementById('taskCards');
       const empty = document.getElementById('empty');
-
       if(list.length===0){
-        tbody.innerHTML = '';
+        container.innerHTML = '';
         empty.style.display = 'block';
         return;
       }
       empty.style.display = 'none';
 
-      tbody.innerHTML = list.map(t=>{
-        const notes = t.notes ? esc(t.notes) : '<span class="muted">—</span>';
-        const due = fmtDate(t.due);
-        return `
-          <tr>
-            <td class="nowrap"><input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" /></td>
-            <td><strong>${esc(t.name)}</strong></td>
-            <td>${esc(t.project)}</td>
-            <td><span class="badge">${esc(t.priority)}</span></td>
-            <td class="nowrap">${due}</td>
-            <td><span class="badge">${esc(t.status)}</span></td>
-            <td title="${esc(t.notes||'')}">${notes}</td>
-            <td class="nowrap">
-              <button class="btn outline sm" type="button" onclick="openEdit(${t.id})">Edit</button>
-              <button class="btn danger sm" type="button" onclick="delTask(${t.id})">Delete</button>
-            </td>
-          </tr>
-        `;
-      }).join('');
+      // Group by project then counsel type
+      const grouped = {};
+      list.forEach(t=>{
+        const p = t.project || 'General';
+        const ct = t.counsel || 'Internal Counsel';
+        if(!grouped[p]) grouped[p] = {};
+        if(!grouped[p][ct]) grouped[p][ct] = [];
+        grouped[p][ct].push(t);
+      });
+      const projKeys = Object.keys(grouped).sort((a,b)=>a.localeCompare(b));
+
+      let cardsHTML = '';
+      projKeys.forEach(proj=>{
+        cardsHTML += `<div style="margin:16px 0 6px;padding:9px 14px;background:var(--navy);color:#fff;border-radius:10px;font-weight:900;font-size:.95rem;">\uD83D\uDCC1 ${esc(proj)}</div>`;
+        const counselKeys = Object.keys(grouped[proj]).sort();
+        counselKeys.forEach(cType=>{
+          const cBg = cType==='External Counsel' ? '#fef3c7' : '#dbeafe';
+          const cBorder = cType==='External Counsel' ? '#f59e0b' : '#3b82f6';
+          cardsHTML += `<div style="margin:6px 0 4px 10px;padding:5px 12px;background:${cBg};border-radius:8px;font-weight:800;font-size:.82rem;color:var(--navy);border-left:3px solid ${cBorder};">${esc(cType)}</div>`;
+          grouped[proj][cType].forEach(t=>{
+            const isExpanded = expandedCards.has(t.id);
+            const priBg = PRIORITY_COLORS[t.priority] || '#eef2ff';
+            const notes = t.notes ? esc(t.notes) : '\u2014';
+            const due = fmtDate(t.due);
+            cardsHTML += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${t.id}" onclick="toggleCard(${t.id}, event)" style="margin-left:10px;">
+          <div class="task-card-header">
+            <input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" onclick="event.stopPropagation()" />
+            <strong style="flex:1;font-size:.92rem">${esc(t.name)}</strong>
+            <span class="badge" style="background:${priBg}">${esc(t.priority)}</span>
+            <span class="badge">${esc(t.status)}</span>
+            <span class="chevron">\u25b6</span>
+          </div>
+          <div class="task-card-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+              <div>
+                <label style="margin-bottom:2px">Counsel Type</label>
+                <p style="font-size:.9rem;margin-top:4px">${esc(t.counsel||'Internal Counsel')}</p>
+              </div>
+              <div>
+                <label style="margin-bottom:2px">Due Date</label>
+                <p style="font-size:.9rem;margin-top:4px">${due}</p>
+              </div>
+              <div>
+                <label style="margin-bottom:2px">Notes</label>
+                <p style="font-size:.9rem;margin-top:4px;color:#4b5563">${notes}</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn outline sm" type="button" onclick="openEdit(${t.id});event.stopPropagation()">\u270f\ufe0f Edit</button>
+              <button class="btn danger sm" type="button" onclick="delTask(${t.id});event.stopPropagation()">\uD83D\uDDD1\ufe0f Delete</button>
+            </div>
+          </div>
+        </div>`;
+          });
+        });
+      });
+      container.innerHTML = cardsHTML;
     }
 
     function updateStats(){
@@ -676,7 +824,7 @@
     function generateSummary(){
       const scope = document.getElementById('summaryScope').value;
       const chosen = buildSummaryList(scope);
-      if(chosen.length===0){ toast('⚠️ No tasks to summarize for that scope'); return; }
+      if(chosen.length===0){ toast('\u26a0\ufe0f No tasks to summarize for that scope'); return; }
 
       // Group by project
       const byProject = {};
@@ -706,138 +854,104 @@
       const counts = {};
       chosen.forEach(t=>{ counts[t.status] = (counts[t.status]||0) + 1; });
 
-      // Outlook-friendly HTML
-      let html = `<div style="font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;max-width:760px;margin:0 auto;">`;
-      html += `<table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:3px solid #1b2a4a;margin-bottom:16px;"><tr><td style="padding:16px 0;">`;
-      html += `<h1 style="margin:0;font-size:22px;color:#1b2a4a;">📋 Weekly Task Summary</h1>`;
-      html += `<p style="margin:4px 0 0;font-size:14px;color:#6c757d;">${range}</p>`;
-      html += `</td></tr></table>`;
-
-      const chips = Object.keys(counts).sort((a,b)=>a.localeCompare(b)).map(k=>`${k}: ${counts[k]}`).join(' · ');
-      html += `<p style="margin:0 0 14px;font-size:13px;color:#6c757d;"><strong>${chosen.length}</strong> tasks · ${esc(chips)}</p>`;
-
-      // ── Executive Summary: simple text sorted by due date ──
-      const prOrderExec = {};
-      PRIORITIES.forEach((p,i)=> prOrderExec[p]=i);
-      const sortedAll = [...chosen].sort((a,b)=>{
+      // FIX: Define chips and sortedAll
+      const chips = Object.entries(counts).map(([k,v])=> k+': '+v).join(' \u00b7 ');
+      const sortedAll = chosen.slice().sort((a,b)=>{
         const da = a.due || '9999-12-31';
         const db = b.due || '9999-12-31';
-        if(da !== db) return da < db ? -1 : 1;
-        const pa = prOrderExec[a.priority] ?? 999;
-        const pb = prOrderExec[b.priority] ?? 999;
-        if(pa !== pb) return pa - pb;
-        return (a.name||'').localeCompare(b.name||'');
+        return da < db ? -1 : da > db ? 1 : 0;
       });
 
-      html += `<div style="border-left:4px solid #e67e22;padding:10px 14px;margin:4px 0 20px;background:#fffaf5;border-radius:0 10px 10px 0;">`;
-      html += `<h2 style="font-size:16px;color:#1b2a4a;margin:0 0 10px;font-weight:800;">🎯 Executive Summary — Tasks by Due Date</h2>`;
+      // Outlook-friendly HTML
+      let html = `<div style="font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;max-width:760px;margin:0 auto;">`;
+      html += `<h1 style="margin:0 0 4px;font-size:18px;color:#1b2a4a;">\uD83D\uDCCB Weekly Task Summary</h1>`;
+      html += `<p style="margin:0 0 2px;font-size:12px;color:#6c757d;">${range}</p>`;
+      html += `<p style="margin:0 0 10px;font-size:11px;color:#6c757d;"><strong>${chosen.length}</strong> tasks \u00b7 ${esc(chips)}</p>`;
+      html += `<hr style="border:none;border-top:2px solid #1b2a4a;margin:0 0 10px;">`;
+
+      // Executive Summary
+      html += `<div style="border-left:3px solid #e67e22;padding:6px 12px;margin:0 0 12px;background:#fffaf5;border-radius:0 8px 8px 0;">`;
+      html += `<h2 style="font-size:13px;color:#1b2a4a;margin:0 0 6px;font-weight:800;">\uD83C\uDFAF Executive Summary \u2014 Tasks by Due Date</h2>`;
       sortedAll.forEach((t,i)=>{
-        html += `<p style="margin:2px 0 6px 4px;font-size:13px;line-height:1.5;"><strong>${i+1}.</strong> ${esc(t.name)} — <em>${esc(t.project||'General')}</em> | Priority: ${esc(t.priority)} | Due: ${fmtDate(t.due)} | Stage: <strong>${esc(t.status)}</strong></p>`;
+        html += `<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>${i+1}.</strong> ${esc(t.name)} \u2014 <em>${esc(t.project||'General')}</em> | ${esc(t.counsel||'Internal Counsel')} | ${esc(t.priority)} | ${fmtDate(t.due)} | <strong>${esc(t.status)}</strong></p>`;
       });
       html += `</div>`;
-      html += `<hr style="border:none;border-top:2px solid #dee2e6;margin:0 0 18px;">`;
 
-
+      // Project details grouped by counsel type
       projectsSorted.forEach(proj=>{
-        html += `<h2 style="font-size:16px;color:#1b2a4a;border-bottom:2px solid #3b82f6;padding-bottom:6px;margin:18px 0 10px;font-weight:800;">📁 ${esc(proj)}</h2>`;
-        html += `<table width="100%" cellpadding="8" cellspacing="0" style="border-collapse:collapse;font-size:13px;margin-bottom:10px;">`;
-        html += `<tr style="background:#1b2a4a;color:#ffffff;">`+
-                `<th style="text-align:left;padding:10px 8px;border:1px solid #1b2a4a;">Task</th>`+
-                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:90px;">Priority</th>`+
-                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:110px;">Due</th>`+
-                `<th style="text-align:center;padding:10px 8px;border:1px solid #1b2a4a;width:140px;">Stage</th>`+
-                `<th style="text-align:left;padding:10px 8px;border:1px solid #1b2a4a;">Notes</th>`+
-                `</tr>`;
+        html += `<div style="margin:8px 0;">`;
+        html += `<h3 style="font-size:12px;color:#fff;background:#1b2a4a;padding:5px 10px;margin:0;border-radius:6px 6px 0 0;">\uD83D\uDCC1 ${esc(proj)}</h3>`;
+        html += `<div style="border:1px solid #dee2e6;border-top:none;border-radius:0 0 6px 6px;padding:6px 10px;">`;
 
-        byProject[proj].forEach((t,i)=>{
-          const bg = i%2===0 ? '#ffffff' : '#f8f9fa';
-          html += `<tr style="background:${bg};">`;
-          html += `<td style="padding:8px;border:1px solid #dee2e6;font-weight:600;">${esc(t.name)}</td>`;
-          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;">${esc(t.priority)}</td>`;
-          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;">${fmtDate(t.due)}</td>`;
-          html += `<td style="padding:8px;border:1px solid #dee2e6;text-align:center;font-weight:700;">${esc(t.status)}</td>`;
-          html += `<td style="padding:8px;border:1px solid #dee2e6;color:#6c757d;">${t.notes ? esc(t.notes) : '—'}</td>`;
-          html += `</tr>`;
+        // Sub-group by counsel type
+        const byCounsel = {};
+        byProject[proj].forEach(t=>{
+          const ct = t.counsel || 'Internal Counsel';
+          if(!byCounsel[ct]) byCounsel[ct] = [];
+          byCounsel[ct].push(t);
+        });
+        const counselKeys = Object.keys(byCounsel).sort();
+        counselKeys.forEach(cType=>{
+          const cBg = cType === 'External Counsel' ? '#fef3c7' : '#dbeafe';
+          const cBorder = cType === 'External Counsel' ? '#f59e0b' : '#3b82f6';
+          html += `<div style="margin:6px 0 4px;padding:4px 8px;background:${cBg};border-left:3px solid ${cBorder};border-radius:0 6px 6px 0;font-weight:800;font-size:11px;color:#1b2a4a;">${esc(cType)}</div>`;
+          byCounsel[cType].forEach((t,i)=>{
+            const borderBot = i < byCounsel[cType].length - 1 ? 'border-bottom:1px solid #eee;' : '';
+            html += `<div style="padding:4px 0 4px 12px;${borderBot}font-size:11px;line-height:1.5;">`;
+            html += `<strong>${esc(t.name)}</strong>`;
+            html += `<span style="color:#6c757d;"> \u2014 ${esc(t.priority)} | ${fmtDate(t.due)} | ${esc(t.status)}</span>`;
+            if(t.notes) html += `<br><span style="color:#888;font-size:10px;">\u2192 ${esc(t.notes)}</span>`;
+            html += `</div>`;
+          });
         });
 
-        html += `</table>`;
+        html += `</div></div>`;
       });
 
-      html += `<p style="font-size:11px;color:#adb5bd;margin-top:18px;border-top:1px solid #dee2e6;padding-top:10px;">Generated by Task Builder + Weekly Summary</p>`;
+      html += `<p style="font-size:9px;color:#adb5bd;margin-top:10px;border-top:1px solid #dee2e6;padding-top:6px;">Generated by Task Builder + Weekly Summary</p>`;
       html += `</div>`;
-
       summaryHTML = html;
       document.getElementById('summary').innerHTML = html;
 
       // Plain text
       let txt = `WEEKLY TASK SUMMARY\n${range}\n`;
-      txt += `${chosen.length} tasks · ${chips}\n`;
-      txt += `${'═'.repeat(60)}\n\n`;
+      txt += `${chosen.length} tasks \u00b7 ${chips}\n`;
+      txt += `${'\u2550'.repeat(60)}\n\n`;
 
-      // ── Executive Summary in plain text ──
-      txt += `🎯 EXECUTIVE SUMMARY — TASKS BY DUE DATE\n`;
-      txt += `${'─'.repeat(50)}\n`;
+      // Executive Summary in plain text
+      txt += `\uD83C\uDFAF EXECUTIVE SUMMARY \u2014 TASKS BY DUE DATE\n`;
+      txt += `${'\u2500'.repeat(50)}\n`;
       sortedAll.forEach((t,i)=>{
         const num = String(i+1).padStart(2,' ');
-        txt += `${num}. ${t.name} — ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+        txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | ${t.counsel||'Internal Counsel'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
       });
-      txt += `${'═'.repeat(60)}\n\n`;
+      txt += `${'\u2550'.repeat(60)}\n\n`;
 
       projectsSorted.forEach(proj=>{
-        txt += `▸ ${proj.toUpperCase()}\n${'─'.repeat(40)}\n`;
+        txt += `\n${'\u2550'.repeat(4)} ${proj.toUpperCase()} ${'\u2550'.repeat(Math.max(2, 52 - proj.length))}\n\n`;
+        // Sub-group by counsel
+        const byCounsel2 = {};
         byProject[proj].forEach(t=>{
-          txt += ` • ${t.name}\n`;
-          txt += `   Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
-          if(t.notes) txt += `   Notes: ${t.notes}\n`;
-          txt += `\n`;
+          const ct = t.counsel || 'Internal Counsel';
+          if(!byCounsel2[ct]) byCounsel2[ct] = [];
+          byCounsel2[ct].push(t);
+        });
+        const counselKeys2 = Object.keys(byCounsel2).sort();
+        counselKeys2.forEach(cType=>{
+          txt += `  --- ${cType.toUpperCase()} ---\n`;
+          byCounsel2[cType].forEach(t=>{
+            txt += `    \u25aa ${t.name}\n`;
+            txt += `      ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+            if(t.notes) txt += `      Notes: ${t.notes}\n`;
+            txt += `\n`;
+          });
         });
       });
       summaryText = txt;
-
-      toast('✅ Summary generated');
+      toast('\u2705 Summary generated');
     }
 
     // Clipboard
-    async function copyRich(){
-      if(!summaryHTML){ toast('⚠️ Generate a summary first'); return; }
-
-      // Modern clipboard (best)
-      try{
-        const item = new ClipboardItem({
-          'text/html': new Blob([summaryHTML], {type:'text/html'}),
-          'text/plain': new Blob([summaryText || stripHTML(summaryHTML)], {type:'text/plain'})
-        });
-        await navigator.clipboard.write([item]);
-        toast('📋 Copied rich HTML — paste into Outlook');
-        return;
-      } catch(e){
-        // fallback below
-      }
-
-      // Fallback: copy via selection
-      try{
-        const holder = document.createElement('div');
-        holder.contentEditable = 'true';
-        holder.style.position = 'fixed';
-        holder.style.left = '-9999px';
-        holder.style.top = '0';
-        holder.innerHTML = summaryHTML;
-        document.body.appendChild(holder);
-
-        const range = document.createRange();
-        range.selectNodeContents(holder);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
-        document.execCommand('copy');
-        sel.removeAllRanges();
-        document.body.removeChild(holder);
-        toast('📋 Copied (fallback) — paste into Outlook');
-      } catch(e){
-        await copyText();
-      }
-    }
-
     async function copyText(){
       const txt = summaryText || 'Generate a summary first.';
       try{
@@ -854,23 +968,31 @@
       }
     }
 
-        async function downloadImage(){
+        // Download as PDF using html2pdf.js
+    function downloadPDF(){
       const summaryEl = document.getElementById('summary');
       if(!summaryEl || !summaryEl.innerHTML.trim()){ toast('⚠️ Generate a summary first'); return; }
       const origMaxH = summaryEl.style.maxHeight;
       const origOverflow = summaryEl.style.overflow;
       summaryEl.style.maxHeight = 'none';
       summaryEl.style.overflow = 'visible';
-      try{
-        const canvas = await html2canvas(summaryEl, {scale:2, backgroundColor:'#ffffff', useCORS:true, scrollY: -window.scrollY});
-        const link = document.createElement('a');
-        link.download = 'weekly-summary.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-        toast('📸 Image downloaded');
-      }catch(e){ toast('⚠️ Could not generate image: '+e.message); }
-      summaryEl.style.maxHeight = origMaxH;
-      summaryEl.style.overflow = origOverflow;
+      const opt = {
+        margin:       [0.4, 0.4, 0.4, 0.4],
+        filename:     'weekly-summary.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+      html2pdf().set(opt).from(summaryEl).save().then(()=>{
+        summaryEl.style.maxHeight = origMaxH;
+        summaryEl.style.overflow = origOverflow;
+        toast('✅ PDF downloaded');
+      }).catch(e=>{
+        summaryEl.style.maxHeight = origMaxH;
+        summaryEl.style.overflow = origOverflow;
+        toast('⚠️ PDF failed: ' + e.message);
+      });
     }
 
     function stripHTML(html){
