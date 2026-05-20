@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T19:47:22.240Z",
+  "exportedAt": "2026-05-20T19:58:29.043Z",
   "projects": [
+    "Alpha Ranch",
     "Diocese",
     "General",
+    "Hickory Grove",
     "Legacy Fields",
     "Legado",
     "Lonestar, Phase 2A",
@@ -105,6 +107,26 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Drafting PSA. Holding pattern until FHA gets resolved.",
+      "selected": true
+    },
+    {
+      "id": 1779306959878,
+      "name": "Phase 2 MUD Cancellation",
+      "project": "Hickory Grove",
+      "priority": "Critical",
+      "status": "In Progress",
+      "due": "2026-05-22",
+      "notes": "Need to know if we are good to go on cancelling this contract.",
+      "selected": true
+    },
+    {
+      "id": 1779307104858,
+      "name": "PSA / Land Bank Extension",
+      "project": "Alpha Ranch",
+      "priority": "Medium",
+      "status": "Upcoming",
+      "due": "",
+      "notes": "",
       "selected": true
     }
   ]
