@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-20T20:01:38.448Z",
+  "exportedAt": "2026-05-20T20:14:22.077Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,7 +30,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779300942475,
@@ -40,7 +41,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779301059670,
@@ -87,10 +89,11 @@
       "name": "Contract",
       "project": "Diocese",
       "priority": "Medium",
-      "status": "In Progress",
+      "status": "Holding Pattern",
       "due": "",
       "notes": "Contract in sellers court.",
-      "selected": true
+      "selected": true,
+      "counsel": "Internal Counsel"
     },
     {
       "id": 1779305671029,
@@ -100,7 +103,8 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Outside legal making revisions to NSSA and Permanent Easement",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779306213223,
