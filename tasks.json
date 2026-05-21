@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T15:45:01.611Z",
+  "exportedAt": "2026-05-21T15:55:26.334Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -40,8 +40,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779301059670,
@@ -171,16 +170,6 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
-      "selected": true
-    },
-    {
-      "id": 1779377434948,
-      "name": "Justin Cemetery Easement",
-      "project": "Legacy Fields",
-      "priority": "Critical",
-      "status": "In Progress",
-      "due": "2026-05-22",
-      "notes": "Need revised document to send to Cemetery",
       "selected": true
     }
   ],
