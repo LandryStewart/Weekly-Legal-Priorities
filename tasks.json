@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T14:23:22.759Z",
+  "exportedAt": "2026-05-21T14:43:12.911Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,7 +30,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779300942475,
@@ -40,7 +41,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779301059670,
@@ -56,7 +58,7 @@
       "id": 1779301274609,
       "name": "Cemetery Easement",
       "project": "Legacy Fields",
-      "priority": "Critical",
+      "priority": "Low",
       "status": "Upcoming",
       "due": "2026-06-30",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
@@ -70,7 +72,8 @@
       "status": "Upcoming",
       "due": "2026-05-29",
       "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
-      "selected": true
+      "selected": true,
+      "counsel": "Internal Counsel"
     },
     {
       "id": 1779304321339,
@@ -86,7 +89,7 @@
       "id": 1779305138608,
       "name": "Contract",
       "project": "Diocese",
-      "priority": "Medium",
+      "priority": "Low",
       "status": "Holding Pattern",
       "due": "",
       "notes": "Contract in sellers court.",
@@ -100,13 +103,14 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Outside legal making revisions to NSSA and Permanent Easement",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779306213223,
       "name": "Phase 2 Contract",
       "project": "Legado",
-      "priority": "Medium",
+      "priority": "Low",
       "status": "Holding Pattern",
       "due": "",
       "notes": "Drafting PSA. Holding pattern until FHA gets resolved.",
@@ -126,7 +130,7 @@
       "id": 1779307104858,
       "name": "PSA / Land Bank Extension",
       "project": "Alpha Ranch",
-      "priority": "Medium",
+      "priority": "Low",
       "status": "Upcoming",
       "due": "",
       "notes": "",
@@ -136,7 +140,7 @@
       "id": 1779307165581,
       "name": "PSA Amendment",
       "project": "Lonestar, Phase 1A/1B",
-      "priority": "High",
+      "priority": "Low",
       "status": "In Progress",
       "due": "",
       "notes": "",
@@ -146,7 +150,7 @@
       "id": 1779307173983,
       "name": "Partial Assignment",
       "project": "Lonestar, Phase 2B",
-      "priority": "Medium",
+      "priority": "Low",
       "status": "Upcoming",
       "due": "",
       "notes": "",
@@ -156,7 +160,7 @@
       "id": 1779307294859,
       "name": "Phase 3 PSA",
       "project": "Terra Trace",
-      "priority": "Medium",
+      "priority": "Low",
       "status": "Upcoming",
       "due": "",
       "notes": "",
@@ -167,10 +171,13 @@
       "name": "PSA",
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
+      "counsel": "Internal Counsel",
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
       "selected": true
     }
-  ]
+  ],
+  "emailTo": "ChelseaParish@forestar.com",
+  "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; ColtonBlacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
 }
