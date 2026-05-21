@@ -190,7 +190,8 @@
   <header style="background:linear-gradient(90deg,#1a3c2a,#2d5a3f);color:#fff;padding:12px 22px;position:relative;text-align:center;">
     <h1 style="font-size:1.2rem;font-weight:900;letter-spacing:.3px;margin:0;">FOR DFW-West Legal Tracker</h1>
     <div style="position:absolute;right:18px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px;">
-        <button id="syncBtn" onclick="syncGitHub()" title="Sync with GitHub" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:10px;transition:.15s;font-weight:700;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">&#x1f504; Sync</button>
+        <span id="lastSyncDisplay" style="font-size:.72rem;color:rgba(255,255,255,.7);font-weight:600;white-space:nowrap;"></span>
+            <button id="syncBtn" onclick="syncGitHub()" title="Sync with GitHub" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:10px;transition:.15s;font-weight:700;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">&#x1f504; Sync</button>
         <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">&#x2699;&#xfe0f;</button>
     </div>
 </header>
@@ -1124,6 +1125,7 @@
             status: t.status || (statuses[0]||'Upcoming'),
             due: t.due || '',
             notes: t.notes || '',
+            counsel: t.counsel || 'Internal Counsel',
             selected: (t.selected !== undefined) ? !!t.selected : true
           })).filter(t=>t.name.length);
           recalcPriorities();
@@ -1295,6 +1297,7 @@
             status: t.status || (statuses[0]||'Upcoming'),
             due: t.due || '',
             notes: t.notes || '',
+            counsel: t.counsel || 'Internal Counsel',
             selected: (t.selected !== undefined) ? !!t.selected : true
           })).filter(t=>t.name.length);
         }
@@ -1317,6 +1320,8 @@
         const now = new Date().toLocaleTimeString();
         ghStatus('✅ Pulled at ' + now + ' (' + tasks.length + ' tasks)', '#16a34a');
         toast('⬇️ Tasks pulled from GitHub');
+        localStorage.setItem('tbws_last_sync', new Date().toISOString());
+        updateLastSyncDisplay();
       }catch(e){
         ghStatus('❌ Pull failed: ' + e.message, '#dc2626');
         toast('⚠️ Pull failed');
@@ -1324,6 +1329,23 @@
     }
 
     // Init
+    
+    function updateLastSyncDisplay(){
+      var el = document.getElementById('lastSyncDisplay');
+      if(!el) return;
+      var stored = localStorage.getItem('tbws_last_sync');
+      if(stored){
+        var d = new Date(stored);
+        if(!isNaN(d.getTime())){
+          el.textContent = 'Last sync: ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        } else {
+          el.textContent = 'Not synced yet';
+        }
+      } else {
+        el.textContent = 'Not synced yet';
+      }
+    }
+
     (function init(){
       // ensure defaults
       if(!projects || !projects.length) projects = DEFAULT_PROJECTS.slice();
@@ -1336,6 +1358,7 @@
       recalcPriorities();
       updateEmailSubject();
       loadEmailFields();
+      updateLastSyncDisplay();
     })();
 
   
@@ -1380,6 +1403,8 @@
             var now = new Date().toLocaleTimeString();
             ghStatus('\u2705 Synced at ' + now, '#16a34a');
             toast('\ud83d\udd04 Synced with GitHub');
+        localStorage.setItem('tbws_last_sync', new Date().toISOString());
+        updateLastSyncDisplay();
         }catch(e){
             ghStatus('\u274c Sync failed: ' + e.message, '#dc2626');
             toast('\u26a0\ufe0f Sync failed');
