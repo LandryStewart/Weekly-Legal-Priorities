@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T15:29:53.894Z",
+  "exportedAt": "2026-05-21T15:31:02.360Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -54,14 +54,13 @@
     },
     {
       "id": 1779301274609,
-      "name": "Cemetery Easement - Prescriptive ROW",
+      "name": "Cemetery Easement",
       "project": "Legacy Fields",
-      "priority": "High",
+      "priority": "Low",
       "status": "Upcoming",
-      "due": "2026-05-29",
+      "due": "2026-06-30",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
-      "selected": true,
-      "counsel": "Internal Counsel"
+      "selected": true
     },
     {
       "id": 1779304154367,
@@ -174,14 +173,14 @@
       "selected": true
     },
     {
-      "id": 1779377393258,
+      "id": 1779377434948,
       "name": "Justin Cemetery Easement",
       "project": "Legacy Fields",
       "priority": "Critical",
       "counsel": "Internal Counsel",
       "status": "In Progress",
       "due": "2026-05-22",
-      "notes": "Need revised agreement to send back to Cemetery",
+      "notes": "Need revised document to send to Cemetery",
       "selected": true
     }
   ],
