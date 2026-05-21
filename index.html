@@ -192,6 +192,7 @@
     <div style="position:absolute;right:18px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px;">
         <span id="lastSyncDisplay" style="font-size:.72rem;color:rgba(255,255,255,.7);font-weight:600;white-space:nowrap;"></span>
             <button id="syncBtn" onclick="syncGitHub()" title="Sync with GitHub" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:10px;transition:.15s;font-weight:700;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">&#x1f504; Sync</button>
+            <button id="pullBtn" onclick="pullFromGitHub()" title="Pull from GitHub" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:10px;transition:.15s;font-weight:700;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">⬇ Pull</button>
         <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">&#x2699;&#xfe0f;</button>
     </div>
 </header>
@@ -1396,13 +1397,12 @@
         if(!token){ toast('\u26a0\ufe0f Set your GitHub token in \u2699\ufe0f Settings first'); ghStatus('No token configured', '#dc2626'); return; }
         var syncBtn = document.getElementById('syncBtn');
         if(syncBtn) syncBtn.style.opacity = '0.5';
-        ghStatus('\ud83d\udd04 Syncing...', '#16a34a');
+        ghStatus('\ud83d\udd04 Pushing...', '#16a34a');
         try{
             await pushToGitHub();
-            await pullFromGitHub();
             var now = new Date().toLocaleTimeString();
-            ghStatus('\u2705 Synced at ' + now, '#16a34a');
-            toast('\ud83d\udd04 Synced with GitHub');
+            ghStatus('\u2705 Pushed at ' + now, '#16a34a');
+            toast('\ud83d\udd04 Pushed to GitHub');
         localStorage.setItem('tbws_last_sync', new Date().toISOString());
         updateLastSyncDisplay();
         }catch(e){
