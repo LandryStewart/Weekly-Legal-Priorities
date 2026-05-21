@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T15:28:32.731Z",
+  "exportedAt": "2026-05-21T15:29:53.894Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,8 +30,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779300942475,
@@ -41,8 +40,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779301059670,
@@ -56,13 +54,14 @@
     },
     {
       "id": 1779301274609,
-      "name": "Cemetery Easement",
+      "name": "Cemetery Easement - Prescriptive ROW",
       "project": "Legacy Fields",
-      "priority": "Low",
+      "priority": "High",
       "status": "Upcoming",
-      "due": "2026-06-30",
+      "due": "2026-05-29",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
-      "selected": true
+      "selected": true,
+      "counsel": "Internal Counsel"
     },
     {
       "id": 1779304154367,
@@ -92,8 +91,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Contract in sellers court.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779305671029,
@@ -173,6 +171,17 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
+      "selected": true
+    },
+    {
+      "id": 1779377393258,
+      "name": "Justin Cemetery Easement",
+      "project": "Legacy Fields",
+      "priority": "Critical",
+      "counsel": "Internal Counsel",
+      "status": "In Progress",
+      "due": "2026-05-22",
+      "notes": "Need revised agreement to send back to Cemetery",
       "selected": true
     }
   ],
