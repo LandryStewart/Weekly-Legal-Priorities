@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T15:12:57.595Z",
+  "exportedAt": "2026-05-21T15:22:31.892Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,8 +30,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779300942475,
@@ -41,8 +40,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779301059670,
@@ -175,6 +173,6 @@
       "selected": true
     }
   ],
-  "emailTo": "ChelseaParish@forestar.com",
-  "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; coltonblacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
+  "emailTo": "",
+  "emailCc": "CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com"
 }
