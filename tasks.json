@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T16:15:45.435Z",
+  "exportedAt": "2026-05-21T16:37:04.841Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -157,7 +157,7 @@
     {
       "id": 1779307173983,
       "name": "Partial Assignment",
-      "project": "Lonestar, Phase 2B",
+      "project": "Lonestar, Phase 2A",
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
@@ -184,17 +184,6 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
-      "counsel": "Internal Counsel",
-      "selected": true
-    },
-    {
-      "id": 1779377434948,
-      "name": "Justin Cemetery Easement",
-      "project": "Legacy Fields",
-      "priority": "Critical",
-      "status": "In Progress",
-      "due": "2026-05-22",
-      "notes": "Need revised document to send to Cemetery",
       "counsel": "Internal Counsel",
       "selected": true
     }
