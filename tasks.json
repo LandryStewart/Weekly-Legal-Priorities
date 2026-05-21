@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T15:57:49.268Z",
+  "exportedAt": "2026-05-21T16:15:45.435Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,6 +30,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -40,6 +41,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
@@ -50,16 +52,18 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Can we get the standard language to initiate discussions? \n\nNeeded for H.A Smith, AIL (Hillwood), and Excel (DHL)",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779301274609,
-      "name": "Cemetery Easement - Prescriptive ROW",
+      "name": "Cemetery Easement",
       "project": "Legacy Fields",
-      "priority": "High",
+      "priority": "Low",
       "status": "Upcoming",
-      "due": "2026-05-29",
+      "due": "2026-06-30",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -70,6 +74,7 @@
       "status": "Upcoming",
       "due": "2026-05-29",
       "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -80,6 +85,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Need to know if we are overhauling this agreement or keep it as is.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -90,6 +96,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Contract in sellers court.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -100,6 +107,7 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Outside legal making revisions to NSSA and Permanent Easement",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -110,6 +118,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Drafting PSA. Holding pattern until FHA gets resolved.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -120,6 +129,7 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Need to know if we are good to go on cancelling this contract.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -130,6 +140,7 @@
       "status": "Upcoming",
       "due": "",
       "notes": "",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -140,6 +151,7 @@
       "status": "In Progress",
       "due": "",
       "notes": "",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -150,6 +162,7 @@
       "status": "Upcoming",
       "due": "",
       "notes": "",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -160,6 +173,7 @@
       "status": "Upcoming",
       "due": "",
       "notes": "",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -170,16 +184,18 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
-      "id": 1779377393258,
+      "id": 1779377434948,
       "name": "Justin Cemetery Easement",
       "project": "Legacy Fields",
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-22",
-      "notes": "Need revised agreement to send back to Cemetery",
+      "notes": "Need revised document to send to Cemetery",
+      "counsel": "Internal Counsel",
       "selected": true
     }
   ],
