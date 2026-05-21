@@ -189,7 +189,10 @@
 <body>
   <header style="background:linear-gradient(90deg,#1a3c2a,#2d5a3f);color:#fff;padding:12px 22px;position:relative;text-align:center;">
     <h1 style="font-size:1.2rem;font-weight:900;letter-spacing:.3px;margin:0;">FOR DFW-West Legal Tracker</h1>
-    <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="position:absolute;right:18px;top:50%;transform:translateY(-50%);background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">⚙️</button>
+    <div style="position:absolute;right:18px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px;">
+        <button id="syncBtn" onclick="syncGitHub()" title="Sync with GitHub" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:.85rem;cursor:pointer;padding:6px 12px;border-radius:10px;transition:.15s;font-weight:700;display:flex;align-items:center;gap:4px;" onmouseover="this.style.background='rgba(255,255,255,.25)'" onmouseout="this.style.background='rgba(255,255,255,.15)'">&#x1f504; Sync</button>
+        <button id="settingsGear" onclick="toggleSettings(event)" title="GitHub Sync Settings" style="background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:6px 8px;border-radius:10px;transition:.15s;" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='none'">&#x2699;&#xfe0f;</button>
+    </div>
 </header>
 
   <!-- Settings Panel (hidden by default) -->
@@ -207,8 +210,7 @@
     </div>
 
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-      <button class="btn primary" type="button" onclick="pushToGitHub()">⬆️ Push to GitHub</button>
-      <button class="btn outline" type="button" onclick="pullFromGitHub()">⬇️ Pull from GitHub</button>
+      <button class="btn primary" type="button" onclick="syncGitHub()" style="width:100%;">🔄 Sync with GitHub</button>
     </div>
     <div style="margin-top:8px;min-height:22px;">
       <span id="ghStatus" style="font-size:.82rem;font-weight:700;"></span>
@@ -1118,7 +1120,7 @@
             id: t.id ?? (Date.now()+Math.floor(Math.random()*1000)),
             name: String(t.name||'').trim(),
             project: t.project || (projects[0]||'General'),
-            priority: 'Low', // will be recalculated by recalcPriorities
+            priority: 'Low', // recalculated by recalcPriorities
             status: t.status || (statuses[0]||'Upcoming'),
             due: t.due || '',
             notes: t.notes || '',
@@ -1289,7 +1291,7 @@
             id: t.id ?? (Date.now()+Math.floor(Math.random()*1000)),
             name: String(t.name||'').trim(),
             project: t.project || (projects[0]||'General'),
-            priority: 'Low', // will be recalculated by recalcPriorities
+            priority: 'Low', // recalculated by recalcPriorities
             status: t.status || (statuses[0]||'Upcoming'),
             due: t.due || '',
             notes: t.notes || '',
@@ -1365,12 +1367,33 @@
         persist();
     }
 
+    // === Sync with GitHub (push then pull) ===
+    async function syncGitHub(){
+        var token = getGHToken();
+        if(!token){ toast('\u26a0\ufe0f Set your GitHub token in \u2699\ufe0f Settings first'); ghStatus('No token configured', '#dc2626'); return; }
+        var syncBtn = document.getElementById('syncBtn');
+        if(syncBtn) syncBtn.style.opacity = '0.5';
+        ghStatus('\ud83d\udd04 Syncing...', '#16a34a');
+        try{
+            await pushToGitHub();
+            await pullFromGitHub();
+            var now = new Date().toLocaleTimeString();
+            ghStatus('\u2705 Synced at ' + now, '#16a34a');
+            toast('\ud83d\udd04 Synced with GitHub');
+        }catch(e){
+            ghStatus('\u274c Sync failed: ' + e.message, '#dc2626');
+            toast('\u26a0\ufe0f Sync failed');
+        }finally{
+            if(syncBtn) syncBtn.style.opacity = '1';
+        }
+    }
+
     // === Tab switching ===
     function switchTab(tab){
         document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
         document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
         document.getElementById('tab-'+tab).classList.add('active');
-        document.querySelector('.tab-btn[data-tab=\"'+tab+'\"]').classList.add('active');
+        document.querySelector('.tab-btn[data-tab=\\"'+tab+'\\"').classList.add('active');
     }
 
     // === Email functions ===
