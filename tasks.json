@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T14:43:12.911Z",
+  "exportedAt": "2026-05-21T14:44:23.402Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,8 +30,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779300942475,
@@ -41,8 +40,7 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779301059670,
@@ -72,8 +70,7 @@
       "status": "Upcoming",
       "due": "2026-05-29",
       "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
-      "selected": true,
-      "counsel": "Internal Counsel"
+      "selected": true
     },
     {
       "id": 1779304321339,
@@ -103,8 +100,7 @@
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Outside legal making revisions to NSSA and Permanent Easement",
-      "selected": true,
-      "counsel": "External Counsel"
+      "selected": true
     },
     {
       "id": 1779306213223,
@@ -171,7 +167,6 @@
       "name": "PSA",
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
-      "counsel": "Internal Counsel",
       "status": "In Progress",
       "due": "2026-05-22",
       "notes": "Chelsea working on PSA",
@@ -179,5 +174,5 @@
     }
   ],
   "emailTo": "ChelseaParish@forestar.com",
-  "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; ColtonBlacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
+  "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; coltonblacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
 }
