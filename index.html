@@ -896,13 +896,25 @@
       html += `<p style="margin:0 0 10px;font-size:11px;color:#6c757d;"><strong>${chosen.length}</strong> tasks \u00b7 ${esc(chips)}</p>`;
       html += `<hr style="border:none;border-top:2px solid #1a3c2a;margin:0 0 10px;">`;
 
-      // Executive Summary
-      html += `<div style="border-left:3px solid #e67e22;padding:6px 12px;margin:0 0 12px;background:#fffaf5;border-radius:0 8px 8px 0;">`;
-      html += `<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Executive Summary \u2014 Tasks by Due Date</h2>`;
-      sortedAll.forEach((t,i)=>{
-        html += `<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>${i+1}.</strong> ${esc(t.name)} \u2014 <em>${esc(t.project||'General')}</em> | ${esc(t.counsel||'Internal Counsel')} | ${esc(t.priority)} | ${fmtDate(t.due)} | <strong>${esc(t.status)}</strong></p>`;
-      });
-      html += `</div>`;
+      // Executive Summary — split by counsel type
+      const intTasks = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='Internal Counsel');
+      const extTasks = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='External Counsel');
+      if(intTasks.length){
+        html += `<div style="border-left:3px solid #16a34a;padding:6px 12px;margin:0 0 12px;background:#f0fdf4;border-radius:0 8px 8px 0;">`;
+        html += `<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Executive Summary \u2014 Internal Counsel</h2>`;
+        intTasks.forEach((t,i)=>{
+          html += `<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>${i+1}.</strong> ${esc(t.name)} \u2014 <em>${esc(t.project||'General')}</em> | ${esc(t.priority)} | ${fmtDate(t.due)} | <strong>${esc(t.status)}</strong></p>`;
+        });
+        html += `</div>`;
+      }
+      if(extTasks.length){
+        html += `<div style="border-left:3px solid #f59e0b;padding:6px 12px;margin:0 0 12px;background:#fffaf5;border-radius:0 8px 8px 0;">`;
+        html += `<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Executive Summary \u2014 External Counsel</h2>`;
+        extTasks.forEach((t,i)=>{
+          html += `<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>${i+1}.</strong> ${esc(t.name)} \u2014 <em>${esc(t.project||'General')}</em> | ${esc(t.priority)} | ${fmtDate(t.due)} | <strong>${esc(t.status)}</strong></p>`;
+        });
+        html += `</div>`;
+      }
 
       // Project details grouped by counsel type
       projectsSorted.forEach(proj=>{
@@ -945,13 +957,27 @@
       txt += `${chosen.length} tasks \u00b7 ${chips}\n`;
       txt += `${'\u2550'.repeat(60)}\n\n`;
 
-      // Executive Summary in plain text
-      txt += `EXECUTIVE SUMMARY \u2014 TASKS BY DUE DATE\n`;
-      txt += `${'\u2500'.repeat(50)}\n`;
-      sortedAll.forEach((t,i)=>{
-        const num = String(i+1).padStart(2,' ');
-        txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | ${t.counsel||'Internal Counsel'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
-      });
+      // Executive Summary in plain text — split by counsel type
+      const intTasksTxt = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='Internal Counsel');
+      const extTasksTxt = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='External Counsel');
+      if(intTasksTxt.length){
+        txt += `EXECUTIVE SUMMARY \u2014 INTERNAL COUNSEL\n`;
+        txt += `${'\u2500'.repeat(50)}\n`;
+        intTasksTxt.forEach((t,i)=>{
+          const num = String(i+1).padStart(2,' ');
+          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+        });
+        txt += `\n`;
+      }
+      if(extTasksTxt.length){
+        txt += `EXECUTIVE SUMMARY \u2014 EXTERNAL COUNSEL\n`;
+        txt += `${'\u2500'.repeat(50)}\n`;
+        extTasksTxt.forEach((t,i)=>{
+          const num = String(i+1).padStart(2,' ');
+          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+        });
+        txt += `\n`;
+      }
       txt += `${'\u2550'.repeat(60)}\n\n`;
 
       projectsSorted.forEach(proj=>{
@@ -1491,13 +1517,27 @@
         var txt = 'EXECUTIVE SUMMARY\n'+range+'\n';
         txt += chosen.length+' tasks \u00b7 '+chips+'\n';
         txt += '\u2550'.repeat(60)+'\n\n';
-        txt += 'TASKS BY DUE DATE\n';
-        txt += '\u2500'.repeat(50)+'\n';
-        sortedAll.forEach(function(t,i){
-            var num = String(i+1).padStart(2,' ');
-            txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | '+(t.counsel||'Internal Counsel')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
-        });
-        txt += '\n'+'\u2550'.repeat(60)+'\n';
+        var intTasksE = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='Internal Counsel'; });
+        var extTasksE = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='External Counsel'; });
+        if(intTasksE.length){
+            txt += 'INTERNAL COUNSEL\n';
+            txt += '\u2500'.repeat(50)+'\n';
+            intTasksE.forEach(function(t,i){
+                var num = String(i+1).padStart(2,' ');
+                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
+            });
+            txt += '\n';
+        }
+        if(extTasksE.length){
+            txt += 'EXTERNAL COUNSEL\n';
+            txt += '\u2500'.repeat(50)+'\n';
+            extTasksE.forEach(function(t,i){
+                var num = String(i+1).padStart(2,' ');
+                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
+            });
+            txt += '\n';
+        }
+        txt += '\u2550'.repeat(60)+'\n';
 
         summaryText = txt;
 
@@ -1506,12 +1546,24 @@
         h += '<p style="margin:0 0 2px;font-size:12px;color:#6c757d;">'+range+'</p>';
         h += '<p style="margin:0 0 10px;font-size:11px;color:#6c757d;"><strong>'+chosen.length+'</strong> tasks \u00b7 '+esc(chips)+'</p>';
         h += '<hr style="border:none;border-top:2px solid #1a3c2a;margin:0 0 10px;">';
-        h += '<div style="border-left:3px solid #16a34a;padding:6px 12px;margin:0 0 12px;background:#f0fdf4;border-radius:0 8px 8px 0;">';
-        h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Tasks by Due Date</h2>';
-        sortedAll.forEach(function(t,i){
-            h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.counsel||'Internal Counsel')+' | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
-        });
-        h += '</div>';
+        var intTasksH = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='Internal Counsel'; });
+        var extTasksH = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='External Counsel'; });
+        if(intTasksH.length){
+            h += '<div style="border-left:3px solid #16a34a;padding:6px 12px;margin:0 0 12px;background:#f0fdf4;border-radius:0 8px 8px 0;">';
+            h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Internal Counsel</h2>';
+            intTasksH.forEach(function(t,i){
+                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
+            });
+            h += '</div>';
+        }
+        if(extTasksH.length){
+            h += '<div style="border-left:3px solid #f59e0b;padding:6px 12px;margin:0 0 12px;background:#fffaf5;border-radius:0 8px 8px 0;">';
+            h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">External Counsel</h2>';
+            extTasksH.forEach(function(t,i){
+                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
+            });
+            h += '</div>';
+        }
         h += '<p style="font-size:9px;color:#adb5bd;margin-top:10px;border-top:1px solid #dee2e6;padding-top:6px;">Generated by DFW-West Legal Tracker</p>';
         h += '</div>';
 
