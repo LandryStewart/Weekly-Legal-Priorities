@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T17:50:59.109Z",
+  "exportedAt": "2026-05-21T17:52:37.254Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -199,6 +199,6 @@
       "selected": true
     }
   ],
-  "emailTo": "ChelseaParish@forestar.com",
+  "emailTo": "ChelseaParish@forestar.com; TiffanyJohnson@forestar.com",
   "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; coltonblacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
 }
