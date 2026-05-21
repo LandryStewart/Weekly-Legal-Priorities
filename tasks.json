@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T14:50:18.278Z",
+  "exportedAt": "2026-05-21T15:11:07.795Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -30,7 +30,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779300942475,
@@ -40,7 +41,8 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for confirmation on Title.",
-      "selected": true
+      "selected": true,
+      "counsel": "External Counsel"
     },
     {
       "id": 1779301059670,
