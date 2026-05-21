@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-21T17:43:47.068Z",
+  "exportedAt": "2026-05-21T17:48:33.083Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -79,11 +79,11 @@
     },
     {
       "id": 1779304321339,
-      "name": "Utility Agreement",
+      "name": "Utility Agreement (Cleburne)",
       "project": "Legado",
       "priority": "Low",
       "status": "Holding Pattern",
-      "due": "",
+      "due": "2026-06-01",
       "notes": "Need to know if we are overhauling this agreement or keep it as is.",
       "counsel": "Internal Counsel",
       "selected": true
@@ -157,7 +157,7 @@
     {
       "id": 1779307173983,
       "name": "Partial Assignment",
-      "project": "Lonestar, Phase 2B",
+      "project": "Lonestar, Phase 2A",
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
@@ -172,8 +172,8 @@
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
-      "notes": "",
-      "counsel": "Internal Counsel",
+      "notes": "Smith Douglas",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
