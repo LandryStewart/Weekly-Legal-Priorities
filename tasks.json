@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-22T13:11:47.878Z",
+  "exportedAt": "2026-05-22T13:23:45.232Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
@@ -51,7 +51,7 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-22",
-      "notes": "Can we get the standard language to initiate discussions? \nNeeded for H.A Smith, AIL (Hillwood), and Excel (DHL)",
+      "notes": "HA - Exhibits in landowners court. Chelsea needs to send waterline easement for us to finalize. (Verify we have updated exhibits)\n\nKetchersid - Under contract with Falcon. Need landowner info (Samantha Ketchersid (Wife) / Walker White (Falcon)) - Expected close October.\n\nAIL North (Hillwood) - Need to verify alignment with MP. Kimberly (Hillwood) - Close to landing the plane on their alignment and we can finalize.  Again, need easement language.\n\nExcel (DHL) - Brady Jackson - Reviewing alignment, kicked off Chelsea on easement documents.........\n\nTI - Email sent to Anna 05/22 with update",
       "counsel": "Internal Counsel",
       "selected": true
     },
