@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-26T13:47:10.789Z",
+  "exportedAt": "2026-05-26T18:56:32.071Z",
   "projects": [
     "Alpha Ranch",
     "Diocese",
+    "Estrella",
     "General",
     "Hickory Grove",
     "Legacy Fields",
@@ -207,6 +208,17 @@
       "status": "In Progress",
       "due": "2026-06-03",
       "notes": "Sent Chelsea CR comments and JLS comments.",
+      "selected": true
+    },
+    {
+      "id": 1779821788158,
+      "name": "Contract",
+      "project": "Estrella",
+      "priority": "Critical",
+      "counsel": "Internal Counsel",
+      "status": "In Progress",
+      "due": "2026-05-29",
+      "notes": "Contract comments in Chelseas court. Do we involve JAE / JW?",
       "selected": true
     }
   ],
