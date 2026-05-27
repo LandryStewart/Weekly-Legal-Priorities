@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-27T13:54:14.599Z",
+  "exportedAt": "2026-05-27T14:03:03.654Z",
   "projects": [
     "Alpha Ranch",
-    "Diocese",
+    "Diocese / Summer Creek",
     "Estrella",
     "General",
     "Hickory Grove",
@@ -63,7 +63,7 @@
       "priority": "Low",
       "status": "Upcoming",
       "due": "2026-06-30",
-      "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
+      "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.\n\nChelsea sent email 05/26 to JAE",
       "counsel": "External Counsel",
       "selected": true
     },
@@ -85,14 +85,14 @@
       "priority": "High",
       "status": "Holding Pattern",
       "due": "2026-06-01",
-      "notes": "Need to know if we are overhauling this agreement or keep it as is.",
+      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.",
       "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779305138608,
       "name": "Contract",
-      "project": "Diocese",
+      "project": "Diocese / Summer Creek",
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
@@ -184,7 +184,7 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-22",
-      "notes": "Chelsea working on PSA",
+      "notes": "Chelsea working on PSA. Back and forth on ALTA differences. Being drafted?",
       "counsel": "Internal Counsel",
       "selected": true
     },
@@ -192,10 +192,10 @@
       "id": 1779377434948,
       "name": "Justin Cemetery Easement",
       "project": "Legacy Fields",
-      "priority": "Critical",
-      "status": "In Progress",
-      "due": "2026-05-22",
-      "notes": "Need revised document to send to Cemetery",
+      "priority": "Low",
+      "status": "Complete",
+      "due": "",
+      "notes": "Need revised document to send to Cemetery.\n\nSent to Rian for Cemetery to review.",
       "counsel": "Internal Counsel",
       "selected": true
     },
