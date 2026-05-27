@@ -308,9 +308,9 @@
         <!-- Sort bar -->
         <div class="sort-bar" id="sortBar">
           <span class="sort-label">Sort by:</span>
-          <span class="sort-link active" data-field="due" onclick="sortBy('due')">Due ⇅</span>
+          <span class="sort-link" data-field="due" onclick="sortBy('due')">Due ⇅</span>
           <span class="sort-link" data-field="name" onclick="sortBy('name')">Name ⇅</span>
-          <span class="sort-link" data-field="project" onclick="sortBy('project')">Project ⇅</span>
+          <span class="sort-link active" data-field="project" onclick="sortBy('project')">Project ⇅</span>
           <span class="sort-link" data-field="priority" onclick="sortBy('priority')">Priority ⇅</span>
           <span class="sort-link" data-field="counsel" onclick="sortBy('counsel')">Counsel ⇅</span>
           <span class="sort-link" data-field="status" onclick="sortBy('status')">Stage ⇅</span>
@@ -459,7 +459,7 @@
     let projects = safeJSON(localStorage.getItem(KEY.projects), DEFAULT_PROJECTS.slice());
     let statuses = safeJSON(localStorage.getItem(KEY.statuses), DEFAULT_STATUSES.slice());
 
-    let sortField = 'due';
+    let sortField = 'project';
     let sortAsc = true;
     let editId = null;
 
@@ -771,40 +771,88 @@
       }
       empty.style.display = 'none';
 
-      // Group by project then counsel type
-      const grouped = {};
-      list.forEach(t=>{
-        const p = t.project || 'General';
-        const ct = t.counsel || 'Internal Counsel';
-        if(!grouped[p]) grouped[p] = {};
-        if(!grouped[p][ct]) grouped[p][ct] = [];
-        grouped[p][ct].push(t);
-      });
-      const projKeys = Object.keys(grouped).sort((a,b)=>a.localeCompare(b));
-
       let cardsHTML = '';
-      projKeys.forEach(proj=>{
-        cardsHTML += `<div style="margin:16px 0 6px;padding:9px 14px;background:var(--navy);color:#fff;border-radius:10px;font-weight:900;font-size:.95rem;">${esc(proj)}</div>`;
-        const counselKeys = Object.keys(grouped[proj]).sort();
-        counselKeys.forEach(cType=>{
-          const cBg = cType==='External Counsel' ? '#fef3c7' : '#dcfce7';
-          const cBorder = cType==='External Counsel' ? '#f59e0b' : '#16a34a';
-          cardsHTML += `<div style="margin:6px 0 4px 10px;padding:5px 12px;background:${cBg};border-radius:8px;font-weight:800;font-size:.82rem;color:var(--navy);border-left:3px solid ${cBorder};">${esc(cType)}</div>`;
-          grouped[proj][cType].forEach(t=>{
-            const isExpanded = expandedCards.has(t.id);
-            const priBg = PRIORITY_COLORS[t.priority] || '#ecfdf5';
-            const notes = t.notes ? esc(t.notes) : '\u2014';
-            const due = fmtDate(t.due);
-            cardsHTML += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${t.id}" onclick="toggleCard(${t.id}, event)" style="margin-left:10px;">
+      if(sortField === 'project'){
+        // Group by project then counsel type
+        const grouped = {};
+        list.forEach(t=>{
+          const p = t.project || 'General';
+          const ct = t.counsel || 'Internal Counsel';
+          if(!grouped[p]) grouped[p] = {};
+          if(!grouped[p][ct]) grouped[p][ct] = [];
+          grouped[p][ct].push(t);
+        });
+        const projKeys = Object.keys(grouped).sort((a,b)=> sortAsc ? a.localeCompare(b) : b.localeCompare(a));
+        projKeys.forEach(proj=>{
+          cardsHTML += `<div style="margin:16px 0 6px;padding:9px 14px;background:var(--navy);color:#fff;border-radius:10px;font-weight:900;font-size:.95rem;">${esc(proj)}</div>`;
+          const counselKeys = Object.keys(grouped[proj]).sort();
+          counselKeys.forEach(cType=>{
+            const cBg = cType==='External Counsel' ? '#fef3c7' : '#dcfce7';
+            const cBorder = cType==='External Counsel' ? '#f59e0b' : '#16a34a';
+            cardsHTML += `<div style="margin:6px 0 4px 10px;padding:5px 12px;background:${cBg};border-radius:8px;font-weight:800;font-size:.82rem;color:var(--navy);border-left:3px solid ${cBorder};">${esc(cType)}</div>`;
+            grouped[proj][cType].forEach(t=>{
+              const isExpanded = expandedCards.has(t.id);
+              const priBg = PRIORITY_COLORS[t.priority] || '#ecfdf5';
+              const notes = t.notes ? esc(t.notes) : '\u2014';
+              const due = fmtDate(t.due);
+              cardsHTML += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${t.id}" onclick="toggleCard(${t.id}, event)" style="margin-left:10px;">
+            <div class="task-card-header">
+              <input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" onclick="event.stopPropagation()" />
+              <strong style="flex:1;font-size:.92rem">${esc(t.name)}</strong>
+              <span class="badge" style="background:${priBg}">${esc(t.priority)}</span>
+              <span class="badge">${esc(t.status)}</span>
+            <span class="badge" style="background:#e5e7eb">${t.due ? '📅 ' + fmtDate(t.due) : '📅 \u2014'}</span>
+            <span class="chevron">\u25b6</span>
+            </div>
+            <div class="task-card-body">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+                <div>
+                  <label style="margin-bottom:2px">Counsel Type</label>
+                  <p style="font-size:.9rem;margin-top:4px">${esc(t.counsel||'Internal Counsel')}</p>
+                </div>
+                <div>
+                  <label style="margin-bottom:2px">Due Date</label>
+                  <p style="font-size:.9rem;margin-top:4px">${due}</p>
+                </div>
+                <div>
+                  <label style="margin-bottom:2px">Notes</label>
+                  <p style="font-size:.9rem;margin-top:4px;color:#4b5563">${notes}</p>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn outline sm" type="button" onclick="openEdit(${t.id});event.stopPropagation()">\u270f\ufe0f Edit</button>
+                <button class="btn danger sm" type="button" onclick="delTask(${t.id});event.stopPropagation()">\uD83D\uDDD1\ufe0f Delete</button>
+              </div>
+            </div>
+          </div>`;
+            });
+          });
+        });
+      } else {
+        // Flat sorted list — preserves sort order from filteredTasks()
+        list.forEach(t=>{
+          const isExpanded = expandedCards.has(t.id);
+          const priBg = PRIORITY_COLORS[t.priority] || '#ecfdf5';
+          const notes = t.notes ? esc(t.notes) : '\u2014';
+          const due = fmtDate(t.due);
+          const cBg = (t.counsel||'Internal Counsel')==='External Counsel' ? '#fef3c7' : '#dcfce7';
+          cardsHTML += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${t.id}" onclick="toggleCard(${t.id}, event)">
           <div class="task-card-header">
             <input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" onclick="event.stopPropagation()" />
             <strong style="flex:1;font-size:.92rem">${esc(t.name)}</strong>
+            <span class="badge" style="background:#e0e7ff;color:#3730a3;font-size:.7rem">${esc(t.project||'General')}</span>
+            <span class="badge" style="background:${cBg};font-size:.7rem">${esc(t.counsel||'Internal Counsel')}</span>
             <span class="badge" style="background:${priBg}">${esc(t.priority)}</span>
             <span class="badge">${esc(t.status)}</span>
+            <span class="badge" style="background:#e5e7eb">${t.due ? '\u{1F4C5} ' + fmtDate(t.due) : '\u{1F4C5} \u2014'}</span>
             <span class="chevron">\u25b6</span>
           </div>
           <div class="task-card-body">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+              <div>
+                <label style="margin-bottom:2px">Project</label>
+                <p style="font-size:.9rem;margin-top:4px">${esc(t.project||'General')}</p>
+              </div>
               <div>
                 <label style="margin-bottom:2px">Counsel Type</label>
                 <p style="font-size:.9rem;margin-top:4px">${esc(t.counsel||'Internal Counsel')}</p>
@@ -824,9 +872,8 @@
             </div>
           </div>
         </div>`;
-          });
         });
-      });
+      }
       container.innerHTML = cardsHTML;
     }
 
