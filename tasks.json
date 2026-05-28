@@ -1,10 +1,9 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T15:54:23.821Z",
+  "exportedAt": "2026-05-28T20:57:44.158Z",
   "projects": [
     "Alpha Ranch",
-    "Diocese / Summer Creek",
-    "Estrella",
+    "Diocese",
     "General",
     "Hickory Grove",
     "Legacy Fields",
@@ -27,11 +26,11 @@
       "id": 1779300908887,
       "name": "BKV First Amendment",
       "project": "Saddleside",
-      "priority": "High",
+      "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-05",
+      "due": "2026-05-29",
       "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "counsel": "External Counsel",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -41,7 +40,7 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
-      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE",
+      "notes": "Chelsea sending to JAE for confirmation on Title.",
       "counsel": "External Counsel",
       "selected": true
     },
@@ -51,25 +50,25 @@
       "project": "Legacy Fields",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "HA - Exhibits in landowners court. Chelsea needs to send waterline easement for us to finalize. (Verify we have updated exhibits)\n\nKetchersid - Under contract with Falcon. Need landowner info (Samantha Ketchersid (Wife) / Walker White (Falcon)) - Expected close October.\n\nAIL North (Hillwood) - Need to verify alignment with MP. Kimberly (Hillwood) - Close to landing the plane on their alignment and we can finalize.  Again, need easement language.\n\nExcel (DHL) - Brady Jackson - Reviewing alignment, kicked off Chelsea on easement documents.\n\nTI - Email sent to Anna 05/22 with update\n\nNeed to know if this is internal or external",
+      "due": "2026-05-22",
+      "notes": "Can we get the standard language to initiate discussions? \n\nNeeded for H.A Smith, AIL (Hillwood), and Excel (DHL)",
       "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779301274609,
-      "name": "Cemetery ROW Easement",
+      "name": "Cemetery Easement",
       "project": "Legacy Fields",
       "priority": "Low",
       "status": "Upcoming",
       "due": "2026-06-30",
-      "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.\n\nChelsea sent email 05/26 to JAE",
-      "counsel": "External Counsel",
+      "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779304154367,
-      "name": "BVRT Easements",
+      "name": "BVRT Separate Instrument",
       "project": "Saddleside",
       "priority": "Critical",
       "status": "Upcoming",
@@ -80,24 +79,24 @@
     },
     {
       "id": 1779304321339,
-      "name": "Utility Agreement (Cleburne)",
+      "name": "Utility Agreement",
       "project": "Legado",
-      "priority": "High",
+      "priority": "Low",
       "status": "Holding Pattern",
-      "due": "2026-06-01",
-      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.",
-      "counsel": "External Counsel",
+      "due": "",
+      "notes": "Need to know if we are overhauling this agreement or keep it as is.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779305138608,
       "name": "Contract",
-      "project": "Diocese / Summer Creek",
-      "priority": "High",
-      "status": "In Progress",
-      "due": "2026-06-05",
-      "notes": "Received Jackson Walker comments 05/20. Division to review and have chelsea review\n\nBack in JW court to review",
-      "counsel": "External Counsel",
+      "project": "Diocese",
+      "priority": "Low",
+      "status": "Holding Pattern",
+      "due": "",
+      "notes": "Contract in sellers court.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -106,8 +105,8 @@
       "project": "Saddleside",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Outside legal making revisions to NSSA and Permanent Easement\n\nNSSA in BVRT court, Easement redlined and in FOR court. push back on 12.01 termination?",
+      "due": "2026-05-22",
+      "notes": "Outside legal making revisions to NSSA and Permanent Easement",
       "counsel": "Internal Counsel",
       "selected": true
     },
@@ -118,8 +117,8 @@
       "priority": "Low",
       "status": "Holding Pattern",
       "due": "",
-      "notes": "Drafting PSA. Holding pattern until FHA gets resolved.\n\nContract finished, FHA discussions to be had with DHI",
-      "counsel": "External Counsel",
+      "notes": "Drafting PSA. Holding pattern until FHA gets resolved.",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -134,20 +133,31 @@
       "selected": true
     },
     {
+      "id": 1779307104858,
+      "name": "PSA / Land Bank Extension",
+      "project": "Alpha Ranch",
+      "priority": "Low",
+      "status": "Upcoming",
+      "due": "",
+      "notes": "",
+      "counsel": "Internal Counsel",
+      "selected": true
+    },
+    {
       "id": 1779307165581,
       "name": "PSA Amendment",
-      "project": "Lonestar, Phase 2A",
+      "project": "Lonestar, Phase 1A/1B",
       "priority": "Low",
       "status": "In Progress",
       "due": "",
-      "notes": "Phase 1A/1B amendment - Tie with Phase 2A deadlines.",
+      "notes": "",
       "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779307173983,
       "name": "Partial Assignment",
-      "project": "Lonestar, Phase 2A",
+      "project": "Lonestar, Phase 2B",
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
@@ -162,8 +172,8 @@
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
-      "notes": "Smith Douglas",
-      "counsel": "External Counsel",
+      "notes": "",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
@@ -172,100 +182,23 @@
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Draft in DHI court.",
-      "counsel": "External Counsel",
+      "due": "2026-05-22",
+      "notes": "Chelsea working on PSA",
+      "counsel": "Internal Counsel",
       "selected": true
     },
     {
       "id": 1779377434948,
       "name": "Justin Cemetery Easement",
       "project": "Legacy Fields",
-      "priority": "High",
-      "status": "Complete",
-      "due": "2026-06-03",
-      "notes": "Need revised document to send to Cemetery.\n\nSent to Rian for Cemetery to review.\n\nRian sent to Cemetery 05/27",
-      "counsel": "External Counsel",
-      "selected": true
-    },
-    {
-      "id": 1779803223009,
-      "name": "MVRK WSA",
-      "project": "Saddleside",
-      "priority": "High",
-      "counsel": "Internal Counsel",
-      "status": "In Progress",
-      "due": "2026-06-01",
-      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)",
-      "selected": true
-    },
-    {
-      "id": 1779821788158,
-      "name": "Contract",
-      "project": "Estrella",
-      "priority": "High",
-      "counsel": "External Counsel",
-      "status": "In Progress",
-      "due": "2026-06-05",
-      "notes": "JAE has comments.",
-      "selected": true
-    },
-    {
-      "id": 1779978488590,
-      "name": "Easement Abandonment",
-      "project": "Alpha Ranch",
       "priority": "Critical",
-      "counsel": "Internal Counsel",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Sewer Easement Abandonment. Need signatures and recorded",
-      "selected": true
-    },
-    {
-      "id": 1779979062132,
-      "name": "AT&T Easement Abandonment",
-      "project": "Legacy Fields",
-      "priority": "High",
-      "counsel": "External Counsel",
-      "status": "Upcoming",
-      "due": "2026-06-05",
-      "notes": "Does this clear title objection? Send to Joanna / JAE.",
-      "selected": true
-    },
-    {
-      "id": 1779979249376,
-      "name": "Waiver of Special Assessment / Ag Lease Termination",
-      "project": "Alpha Ranch",
-      "priority": "High",
+      "due": "2026-05-22",
+      "notes": "Need revised document to send to Cemetery",
       "counsel": "Internal Counsel",
-      "status": "Upcoming",
-      "due": "2026-06-05",
-      "notes": "Need to sign and execute",
-      "selected": true
-    },
-    {
-      "id": 1779979334511,
-      "name": "Sewer Easement Dedication",
-      "project": "Alpha Ranch",
-      "priority": "High",
-      "counsel": "Internal Counsel",
-      "status": "Upcoming",
-      "due": "2026-06-05",
-      "notes": "",
-      "selected": true
-    },
-    {
-      "id": 1779982785030,
-      "name": "Assignment Documents for Phase 1A/1B",
-      "project": "Lonestar, Phase 2A",
-      "priority": "High",
-      "counsel": "Internal Counsel",
-      "status": "Upcoming",
-      "due": "2026-06-01",
-      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)",
       "selected": true
     }
   ],
-  "emailTo": "ChelseaParish@forestar.com; TiffanyJohnson@forestar.com",
-  "emailCc": " CarrieCappel@forestar.com; StephenBrim@forestar.com; JordanFranquero@forestar.com; coltonblacketer@forestar.com; RianRahimi@forestar.com; SummerRamsey@forestar.com"
+  "emailTo": "",
+  "emailCc": ""
 }
