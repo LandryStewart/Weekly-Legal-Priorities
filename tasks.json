@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T14:42:49.191Z",
+  "exportedAt": "2026-05-28T14:54:11.074Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -86,7 +86,7 @@
       "status": "Holding Pattern",
       "due": "2026-06-01",
       "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.",
-      "counsel": "Internal Counsel",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
@@ -119,7 +119,7 @@
       "status": "Holding Pattern",
       "due": "",
       "notes": "Drafting PSA. Holding pattern until FHA gets resolved.\n\nContract finished, FHA discussions to be had with DHI",
-      "counsel": "Internal Counsel",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
@@ -195,19 +195,19 @@
       "priority": "High",
       "counsel": "Internal Counsel",
       "status": "In Progress",
-      "due": "2026-06-03",
-      "notes": "Sent Chelsea CR comments and JLS comments.",
+      "due": "2026-06-01",
+      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)",
       "selected": true
     },
     {
       "id": 1779821788158,
       "name": "Contract",
       "project": "Estrella",
-      "priority": "Critical",
-      "counsel": "Internal Counsel",
+      "priority": "High",
+      "counsel": "External Counsel",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Contract comments in Chelseas court. Is this is JAE's court?",
+      "due": "2026-06-05",
+      "notes": "JAE has comments.",
       "selected": true
     },
     {
@@ -226,7 +226,7 @@
       "name": "AT&T Easement Abandonment",
       "project": "Legacy Fields",
       "priority": "High",
-      "counsel": "Internal Counsel",
+      "counsel": "External Counsel",
       "status": "Upcoming",
       "due": "2026-06-05",
       "notes": "Does this clear title objection? Send to Joanna / JAE.",
