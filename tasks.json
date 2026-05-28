@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T14:57:38.324Z",
+  "exportedAt": "2026-05-28T15:39:45.316Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -252,6 +252,17 @@
       "status": "Upcoming",
       "due": "2026-06-05",
       "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1779982785030,
+      "name": "Assignment Documents for Phase 1A/1B",
+      "project": "Lonestar, Phase 2A",
+      "priority": "High",
+      "counsel": "Internal Counsel",
+      "status": "Upcoming",
+      "due": "2026-06-01",
+      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)",
       "selected": true
     }
   ],
