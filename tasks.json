@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T14:31:10.911Z",
+  "exportedAt": "2026-05-28T14:42:49.191Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -41,8 +41,8 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
-      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?",
-      "counsel": "Internal Counsel",
+      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "id": 1779304154367,
-      "name": "BVRT Separate Instrument",
+      "name": "BVRT Easements",
       "project": "Saddleside",
       "priority": "Critical",
       "status": "Upcoming",
@@ -134,17 +134,6 @@
       "selected": true
     },
     {
-      "id": 1779307104858,
-      "name": "PSA / Land Bank Extension",
-      "project": "Alpha Ranch",
-      "priority": "Low",
-      "status": "Upcoming",
-      "due": "",
-      "notes": "",
-      "counsel": "Internal Counsel",
-      "selected": true
-    },
-    {
       "id": 1779307165581,
       "name": "PSA Amendment",
       "project": "Lonestar, Phase 2A",
@@ -183,9 +172,9 @@
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-05-22",
-      "notes": "Chelsea working on PSA. Back and forth on ALTA differences. Being drafted?",
-      "counsel": "Internal Counsel",
+      "due": "2026-05-29",
+      "notes": "Draft in DHI court.",
+      "counsel": "External Counsel",
       "selected": true
     },
     {
@@ -230,6 +219,39 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Sewer Easement Abandonment. Need signatures and recorded",
+      "selected": true
+    },
+    {
+      "id": 1779979062132,
+      "name": "AT&T Easement Abandonment",
+      "project": "Legacy Fields",
+      "priority": "High",
+      "counsel": "Internal Counsel",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "Does this clear title objection? Send to Joanna / JAE.",
+      "selected": true
+    },
+    {
+      "id": 1779979249376,
+      "name": "Waiver of Special Assessment / Ag Lease Termination",
+      "project": "Alpha Ranch",
+      "priority": "High",
+      "counsel": "Internal Counsel",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "Need to sign and execute",
+      "selected": true
+    },
+    {
+      "id": 1779979334511,
+      "name": "Sewer Easement Dedication",
+      "project": "Alpha Ranch",
+      "priority": "High",
+      "counsel": "Internal Counsel",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "",
       "selected": true
     }
   ],
