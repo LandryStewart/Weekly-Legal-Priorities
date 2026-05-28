@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T14:27:42.217Z",
+  "exportedAt": "2026-05-28T14:31:10.911Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -219,6 +219,17 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Contract comments in Chelseas court. Is this is JAE's court?",
+      "selected": true
+    },
+    {
+      "id": 1779978488590,
+      "name": "Easement Abandonment",
+      "project": "Alpha Ranch",
+      "priority": "Critical",
+      "counsel": "Internal Counsel",
+      "status": "In Progress",
+      "due": "2026-05-29",
+      "notes": "Sewer Easement Abandonment. Need signatures and recorded",
       "selected": true
     }
   ],
