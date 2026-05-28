@@ -248,17 +248,19 @@
             </div>
           </div>
 
-<div class="field col-4">
+<div class="field col-3">
             <label>Counsel Type</label>
             <select id="taskCounsel"></select>
           </div>
-
-          <div class="field col-4">
+          <div class="field col-3">
+            <label>Action</label>
+            <select id="taskAction"></select>
+          </div>
+          <div class="field col-3">
             <label>Stage / Status</label>
             <select id="taskStatus"></select>
           </div>
-
-          <div class="field col-4">
+          <div class="field col-3">
             <label>Due Date (optional)</label>
             <input id="taskDue" type="date" />
           </div>
@@ -294,6 +296,7 @@
           <select id="filterProject" onchange="render()"><option value="">All Projects</option></select>
           <select id="filterPriority" onchange="render()"><option value="">All Priorities</option></select>
           <select id="filterCounsel" onchange="render()"><option value="">All Counsel Types</option></select>
+          <select id="filterAction" onchange="render()"><option value="">All Actions</option></select>
           <select id="filterStatus" onchange="render()"><option value="">All Stages</option></select>
           <input id="filterSearch" type="text" placeholder="Search..." oninput="render()" />
         </div>
@@ -313,6 +316,7 @@
           <span class="sort-link active" data-field="project" onclick="sortBy('project')">Project ⇅</span>
           <span class="sort-link" data-field="priority" onclick="sortBy('priority')">Priority ⇅</span>
           <span class="sort-link" data-field="counsel" onclick="sortBy('counsel')">Counsel ⇅</span>
+          <span class="sort-link" data-field="action" onclick="sortBy('action')">Action ⇅</span>
           <span class="sort-link" data-field="status" onclick="sortBy('status')">Stage ⇅</span>
         </div>
 
@@ -420,8 +424,9 @@
       <div class="formgrid" style="margin-top:10px">
         <div class="field col-12"><label>Task Name</label><input id="eName" type="text" /></div>
         <div class="field col-6"><label>Project</label><select id="eProject"></select></div>
-        <div class="field col-6"><label>Counsel Type</label><select id="eCounsel"></select></div>
-        <div class="field col-6"><label>Stage / Status</label><select id="eStatus"></select></div>
+        <div class="field col-4"><label>Counsel Type</label><select id="eCounsel"></select></div>
+        <div class="field col-4"><label>Action</label><select id="eAction"></select></div>
+        <div class="field col-4"><label>Stage / Status</label><select id="eStatus"></select></div>
         <div class="field col-6"><label>Due Date (optional)</label><input id="eDue" type="date" /></div>
         <div class="field col-12"><label>Notes</label><textarea id="eNotes"></textarea></div>
       </div>
@@ -448,7 +453,8 @@
 
     // Fixed priorities (per request)
     const PRIORITIES = ['Critical','High','Medium','Low'];
-    const COUNSEL_TYPES = ['Internal Counsel','External Counsel'];
+    const COUNSEL_TYPES = ['Internal Counsel','External Counsel','DFW West'];
+    const ACTION_TYPES = ['Drafting','Reviewing'];
 
     // Defaults
     const DEFAULT_PROJECTS = ['General'];
@@ -546,6 +552,9 @@
       fillSelect('taskCounsel', COUNSEL_TYPES);
       fillSelect('filterCounsel', COUNSEL_TYPES, true, 'All Counsel Types');
       fillSelect('eCounsel', COUNSEL_TYPES);
+      fillSelect('taskAction', ACTION_TYPES);
+      fillSelect('filterAction', ACTION_TYPES, true, 'All Actions');
+      fillSelect('eAction', ACTION_TYPES);
 
       // defaults
       if(!document.getElementById('taskProject').value) document.getElementById('taskProject').value = projects[0] || 'General';
@@ -583,6 +592,7 @@
       const due = document.getElementById('taskDue').value; // optional
       const priority = calcPriority(due);
       const counsel = document.getElementById('taskCounsel').value || 'Internal Counsel';
+      const action = document.getElementById('taskAction').value || 'Drafting';
       const status = document.getElementById('taskStatus').value || 'Upcoming';
       const notes = document.getElementById('taskNotes').value.trim();
 
@@ -591,7 +601,7 @@
 
       tasks.push({
         id: Date.now() + Math.floor(Math.random()*1000),
-        name, project, priority, counsel, status, due, notes,
+        name, project, priority, counsel, action, status, due, notes,
         selected: true
       });
 
@@ -607,6 +617,7 @@
       document.getElementById('taskDue').value='';
       document.getElementById('taskNotes').value='';
       document.getElementById('taskCounsel').value='Internal Counsel';
+      document.getElementById('taskAction').value='Drafting';
       document.getElementById('taskStatus').value = statuses.includes('Upcoming') ? 'Upcoming' : (statuses[0] || 'Upcoming');
     }
 
@@ -628,6 +639,7 @@
       document.getElementById('eName').value = t.name;
       document.getElementById('eProject').value = t.project;
       document.getElementById('eCounsel').value = t.counsel || 'Internal Counsel';
+      document.getElementById('eAction').value = t.action || 'Drafting';
       document.getElementById('eStatus').value = t.status;
       document.getElementById('eDue').value = t.due || '';
       document.getElementById('eNotes').value = t.notes || '';
@@ -649,6 +661,7 @@
       t.due = document.getElementById('eDue').value;
       t.priority = calcPriority(t.due);
       t.counsel = document.getElementById('eCounsel').value;
+      t.action = document.getElementById('eAction').value;
       t.status = document.getElementById('eStatus').value;
       t.notes = document.getElementById('eNotes').value.trim();
 
@@ -716,6 +729,7 @@
       const fpr = document.getElementById('filterPriority').value;
       const fs = document.getElementById('filterStatus').value;
       const fc = document.getElementById('filterCounsel').value;
+      const fa = document.getElementById('filterAction').value;
       const q = document.getElementById('filterSearch').value.toLowerCase();
 
       const prOrder = {};
@@ -726,6 +740,7 @@
         if(fpr && t.priority!==fpr) return false;
         if(fs && t.status!==fs) return false;
         if(fc && t.counsel!==fc) return false;
+        if(fa && t.action!==fa) return false;
         if(q){
           const hay = (t.name + ' ' + (t.notes||'') + ' ' + t.project + ' ' + t.priority + ' ' + t.status).toLowerCase();
           if(!hay.includes(q)) return false;
@@ -740,7 +755,8 @@
         else if(sortField==='project'){ va = (a.project||'').toLowerCase(); vb = (b.project||'').toLowerCase(); }
         else if(sortField==='due'){ va = a.due || '9999-12-31'; vb = b.due || '9999-12-31'; }
         else if(sortField==='counsel'){ va = (a.counsel||'').toLowerCase(); vb = (b.counsel||'').toLowerCase(); }
-      else if(sortField==='status'){ va = (a.status||'').toLowerCase(); vb = (b.status||'').toLowerCase(); }
+      else if(sortField==='action'){ va = (a.action||'').toLowerCase(); vb = (b.action||'').toLowerCase(); }
+        else if(sortField==='status'){ va = (a.status||'').toLowerCase(); vb = (b.status||'').toLowerCase(); }
         else { va = a.name; vb = b.name; }
 
         if(va<vb) return sortAsc ? -1 : 1;
@@ -787,8 +803,8 @@
           cardsHTML += `<div style="margin:16px 0 6px;padding:9px 14px;background:var(--navy);color:#fff;border-radius:10px;font-weight:900;font-size:.95rem;">${esc(proj)}</div>`;
           const counselKeys = Object.keys(grouped[proj]).sort();
           counselKeys.forEach(cType=>{
-            const cBg = cType==='External Counsel' ? '#fef3c7' : '#dcfce7';
-            const cBorder = cType==='External Counsel' ? '#f59e0b' : '#16a34a';
+            const cBg = cType==='External Counsel' ? '#fef3c7' : cType==='DFW West' ? '#dbeafe' : '#dcfce7';
+            const cBorder = cType==='External Counsel' ? '#f59e0b' : cType==='DFW West' ? '#3b82f6' : '#16a34a';
             cardsHTML += `<div style="margin:6px 0 4px 10px;padding:5px 12px;background:${cBg};border-radius:8px;font-weight:800;font-size:.82rem;color:var(--navy);border-left:3px solid ${cBorder};">${esc(cType)}</div>`;
             grouped[proj][cType].forEach(t=>{
               const isExpanded = expandedCards.has(t.id);
@@ -800,15 +816,20 @@
               <input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" onclick="event.stopPropagation()" />
               <strong style="flex:1;font-size:.92rem">${esc(t.name)}</strong>
               <span class="badge" style="background:${priBg}">${esc(t.priority)}</span>
+              <span class="badge" style="background:#f3e8ff">${esc(t.action||'Drafting')}</span>
               <span class="badge">${esc(t.status)}</span>
             <span class="badge" style="background:#e5e7eb">${t.due ? '📅 ' + fmtDate(t.due) : '📅 \u2014'}</span>
             <span class="chevron">\u25b6</span>
             </div>
             <div class="task-card-body">
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin-bottom:12px">
                 <div>
                   <label style="margin-bottom:2px">Counsel Type</label>
                   <p style="font-size:.9rem;margin-top:4px">${esc(t.counsel||'Internal Counsel')}</p>
+                </div>
+                <div>
+                  <label style="margin-bottom:2px">Action</label>
+                  <p style="font-size:.9rem;margin-top:4px">${esc(t.action||'Drafting')}</p>
                 </div>
                 <div>
                   <label style="margin-bottom:2px">Due Date</label>
@@ -835,13 +856,14 @@
           const priBg = PRIORITY_COLORS[t.priority] || '#ecfdf5';
           const notes = t.notes ? esc(t.notes) : '\u2014';
           const due = fmtDate(t.due);
-          const cBg = (t.counsel||'Internal Counsel')==='External Counsel' ? '#fef3c7' : '#dcfce7';
+          const cBg = (t.counsel||'Internal Counsel')==='External Counsel' ? '#fef3c7' : (t.counsel||'Internal Counsel')==='DFW West' ? '#dbeafe' : '#dcfce7';
           cardsHTML += `<div class="task-card ${isExpanded ? 'expanded' : ''}" id="card-${t.id}" onclick="toggleCard(${t.id}, event)">
           <div class="task-card-header">
             <input class="cb" type="checkbox" ${t.selected?'checked':''} onchange="toggleSelect(${t.id});render()" onclick="event.stopPropagation()" />
             <strong style="flex:1;font-size:.92rem">${esc(t.name)}</strong>
             <span class="badge" style="background:#e0e7ff;color:#3730a3;font-size:.7rem">${esc(t.project||'General')}</span>
             <span class="badge" style="background:${cBg};font-size:.7rem">${esc(t.counsel||'Internal Counsel')}</span>
+            <span class="badge" style="background:#f3e8ff;font-size:.7rem">${esc(t.action||'Drafting')}</span>
             <span class="badge" style="background:${priBg}">${esc(t.priority)}</span>
             <span class="badge">${esc(t.status)}</span>
             <span class="badge" style="background:#e5e7eb">${t.due ? '\u{1F4C5} ' + fmtDate(t.due) : '\u{1F4C5} \u2014'}</span>
@@ -946,6 +968,7 @@
       // Executive Summary — split by counsel type
       const intTasks = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='Internal Counsel');
       const extTasks = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='External Counsel');
+      const dfwTasks = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='DFW West');
       if(intTasks.length){
         html += `<div style="border-left:3px solid #16a34a;padding:6px 12px;margin:0 0 12px;background:#f0fdf4;border-radius:0 8px 8px 0;">`;
         html += `<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Executive Summary \u2014 Internal Counsel</h2>`;
@@ -963,6 +986,14 @@
         html += `</div>`;
       }
 
+      if(dfwTasks.length){
+        html += `<div style="border-left:3px solid #3b82f6;padding:6px 12px;margin:0 0 12px;background:#eff6ff;border-radius:0 8px 8px 0;">`;
+        html += `<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Executive Summary \u2014 DFW West</h2>`;
+        dfwTasks.forEach((t,i)=>{
+          html += `<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>${i+1}.</strong> ${esc(t.name)} \u2014 <em>${esc(t.project||'General')}</em> | ${esc(t.action||'Drafting')} | ${esc(t.priority)} | ${fmtDate(t.due)} | <strong>${esc(t.status)}</strong></p>`;
+        });
+        html += `</div>`;
+      }
       // Project details grouped by counsel type
       projectsSorted.forEach(proj=>{
         html += `<div style="margin:8px 0;">`;
@@ -978,8 +1009,8 @@
         });
         const counselKeys = Object.keys(byCounsel).sort();
         counselKeys.forEach(cType=>{
-          const cBg = cType === 'External Counsel' ? '#fef3c7' : '#dcfce7';
-          const cBorder = cType === 'External Counsel' ? '#f59e0b' : '#16a34a';
+          const cBg = cType === 'External Counsel' ? '#fef3c7' : cType === 'DFW West' ? '#dbeafe' : '#dcfce7';
+          const cBorder = cType === 'External Counsel' ? '#f59e0b' : cType === 'DFW West' ? '#3b82f6' : '#16a34a';
           html += `<div style="margin:6px 0 4px;padding:4px 8px;background:${cBg};border-left:3px solid ${cBorder};border-radius:0 6px 6px 0;font-weight:800;font-size:11px;color:#1a3c2a;">${esc(cType)}</div>`;
           byCounsel[cType].forEach((t,i)=>{
             const borderBot = i < byCounsel[cType].length - 1 ? 'border-bottom:1px solid #eee;' : '';
@@ -1012,7 +1043,7 @@
         txt += `${'\u2500'.repeat(50)}\n`;
         intTasksTxt.forEach((t,i)=>{
           const num = String(i+1).padStart(2,' ');
-          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | ${t.action||'Drafting'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
         });
         txt += `\n`;
       }
@@ -1021,7 +1052,17 @@
         txt += `${'\u2500'.repeat(50)}\n`;
         extTasksTxt.forEach((t,i)=>{
           const num = String(i+1).padStart(2,' ');
-          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | ${t.action||'Drafting'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
+        });
+        txt += `\n`;
+      }
+      const dfwTasksTxt = sortedAll.filter(t=>(t.counsel||'Internal Counsel')==='DFW West');
+      if(dfwTasksTxt.length){
+        txt += `EXECUTIVE SUMMARY \u2014 DFW WEST\n`;
+        txt += `${'\u2500'.repeat(50)}\n`;
+        dfwTasksTxt.forEach((t,i)=>{
+          const num = String(i+1).padStart(2,' ');
+          txt += `${num}. ${t.name} \u2014 ${t.project||'General'} | ${t.action||'Drafting'} | Priority: ${t.priority} | Due: ${fmtDate(t.due)} | Stage: ${t.status}\n`;
         });
         txt += `\n`;
       }
@@ -1200,6 +1241,7 @@
             due: t.due || '',
             notes: t.notes || '',
             counsel: t.counsel || 'Internal Counsel',
+            action: t.action || 'Drafting',
             selected: (t.selected !== undefined) ? !!t.selected : true
           })).filter(t=>t.name.length);
           recalcPriorities();
@@ -1372,6 +1414,7 @@
             due: t.due || '',
             notes: t.notes || '',
             counsel: t.counsel || 'Internal Counsel',
+            action: t.action || 'Drafting',
             selected: (t.selected !== undefined) ? !!t.selected : true
           })).filter(t=>t.name.length);
         }
@@ -1491,7 +1534,7 @@
         document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
         document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
         document.getElementById('tab-'+tab).classList.add('active');
-        document.querySelector('.tab-btn[data-tab=\\"'+tab+'\\"').classList.add('active');
+        document.querySelector('.tab-btn[data-tab="'+tab+'"]').classList.add('active');
     }
 
     // === Email functions ===
@@ -1566,12 +1609,13 @@
         txt += '\u2550'.repeat(60)+'\n\n';
         var intTasksE = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='Internal Counsel'; });
         var extTasksE = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='External Counsel'; });
+        var dfwTasksE = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='DFW West'; });
         if(intTasksE.length){
             txt += 'INTERNAL COUNSEL\n';
             txt += '\u2500'.repeat(50)+'\n';
             intTasksE.forEach(function(t,i){
                 var num = String(i+1).padStart(2,' ');
-                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
+                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | '+(t.action||'Drafting')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
             });
             txt += '\n';
         }
@@ -1580,7 +1624,16 @@
             txt += '\u2500'.repeat(50)+'\n';
             extTasksE.forEach(function(t,i){
                 var num = String(i+1).padStart(2,' ');
-                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
+                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | '+(t.action||'Drafting')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
+            });
+            txt += '\n';
+        }
+        if(dfwTasksE.length){
+            txt += 'DFW WEST\n';
+            txt += '\u2500'.repeat(50)+'\n';
+            dfwTasksE.forEach(function(t,i){
+                var num = String(i+1).padStart(2,' ');
+                txt += num+'. '+t.name+' \u2014 '+(t.project||'General')+' | '+(t.action||'Drafting')+' | Priority: '+t.priority+' | Due: '+fmtDate(t.due)+' | Stage: '+t.status+'\n';
             });
             txt += '\n';
         }
@@ -1595,11 +1648,12 @@
         h += '<hr style="border:none;border-top:2px solid #1a3c2a;margin:0 0 10px;">';
         var intTasksH = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='Internal Counsel'; });
         var extTasksH = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='External Counsel'; });
+        var dfwTasksH = sortedAll.filter(function(t){ return (t.counsel||'Internal Counsel')==='DFW West'; });
         if(intTasksH.length){
             h += '<div style="border-left:3px solid #16a34a;padding:6px 12px;margin:0 0 12px;background:#f0fdf4;border-radius:0 8px 8px 0;">';
             h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">Internal Counsel</h2>';
             intTasksH.forEach(function(t,i){
-                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
+                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.action||'Drafting')+' | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
             });
             h += '</div>';
         }
@@ -1607,7 +1661,15 @@
             h += '<div style="border-left:3px solid #f59e0b;padding:6px 12px;margin:0 0 12px;background:#fffaf5;border-radius:0 8px 8px 0;">';
             h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">External Counsel</h2>';
             extTasksH.forEach(function(t,i){
-                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
+                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.action||'Drafting')+' | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
+            });
+            h += '</div>';
+        }
+        if(dfwTasksH.length){
+            h += '<div style="border-left:3px solid #3b82f6;padding:6px 12px;margin:0 0 12px;background:#eff6ff;border-radius:0 8px 8px 0;">';
+            h += '<h2 style="font-size:13px;color:#1a3c2a;margin:0 0 6px;font-weight:800;">DFW West</h2>';
+            dfwTasksH.forEach(function(t,i){
+                h += '<p style="margin:0 0 3px;font-size:11px;line-height:1.4;"><strong>'+(i+1)+'.</strong> '+esc(t.name)+' \u2014 <em>'+esc(t.project||'General')+'</em> | '+esc(t.action||'Drafting')+' | '+esc(t.priority)+' | '+fmtDate(t.due)+' | <strong>'+esc(t.status)+'</strong></p>';
             });
             h += '</div>';
         }
