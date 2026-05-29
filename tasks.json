@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-28T21:46:50.618Z",
+  "exportedAt": "2026-05-29T15:38:49.153Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -173,9 +173,10 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
-      "notes": "Draft in DHI court.",
+      "notes": "Draft in DHI court.\n\nNeed to push SC date.",
       "counsel": "External Counsel",
-      "selected": true
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779377434948,
