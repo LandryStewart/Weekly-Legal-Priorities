@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-05-29T16:11:30.073Z",
+  "exportedAt": "2026-06-01T13:17:30.228Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -120,17 +120,6 @@
       "due": "",
       "notes": "Drafting PSA. Holding pattern until FHA gets resolved.\n\nContract finished, FHA discussions to be had with DHI",
       "counsel": "External Counsel",
-      "selected": true
-    },
-    {
-      "id": 1779306959878,
-      "name": "Phase 2 MUD Cancellation",
-      "project": "Hickory Grove",
-      "priority": "Critical",
-      "status": "In Progress",
-      "due": "2026-05-22",
-      "notes": "Need to know if we are good to go on cancelling this contract.",
-      "counsel": "Internal Counsel",
       "selected": true
     },
     {
