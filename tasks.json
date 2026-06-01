@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-01T13:29:12.865Z",
+  "exportedAt": "2026-06-01T18:00:24.542Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -258,6 +258,18 @@
       "status": "Upcoming",
       "due": "2026-06-01",
       "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)",
+      "selected": true
+    },
+    {
+      "id": 1780336817447,
+      "name": "CoServ Blanket Easement",
+      "project": "Saddleside",
+      "priority": "Critical",
+      "counsel": "Internal Counsel",
+      "action": "Reviewing",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "",
       "selected": true
     }
   ],
