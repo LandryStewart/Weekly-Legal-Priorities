@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-08T13:49:52.023Z",
+  "exportedAt": "2026-06-08T16:43:47.694Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -271,6 +271,18 @@
       "status": "Upcoming",
       "due": "2026-06-05",
       "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1780926624740,
+      "name": "Trash Agreement",
+      "project": "Saddleside",
+      "priority": "Medium",
+      "counsel": "DFW West",
+      "action": "Reviewing",
+      "status": "In Progress",
+      "due": "2026-06-26",
+      "notes": "Does this stay with Internal, or do we get CR involved early?",
       "selected": true
     }
   ],
