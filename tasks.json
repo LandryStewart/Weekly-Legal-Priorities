@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-09T15:48:48.741Z",
+  "exportedAt": "2026-06-15T18:55:33.680Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -29,10 +29,11 @@
       "project": "Saddleside",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-05",
-      "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
-      "counsel": "External Counsel",
-      "selected": true
+      "due": "2026-06-19",
+      "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.\n\nJAE curious why we arent recording 1st amendment.",
+      "counsel": "Internal Counsel",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779300942475,
@@ -40,10 +41,11 @@
       "project": "Saddleside",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE",
-      "counsel": "External Counsel",
-      "selected": true
+      "due": "2026-06-19",
+      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE\n\nWaiting for word document and updated exhibit",
+      "counsel": "DFW West",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779301059670,
@@ -66,7 +68,8 @@
       "due": "2026-06-30",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.\n\nChelsea sent email 05/26 to JAE",
       "counsel": "External Counsel",
-      "selected": true
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779304154367,
@@ -75,20 +78,22 @@
       "priority": "Critical",
       "status": "Upcoming",
       "due": "2026-05-29",
-      "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
-      "counsel": "Internal Counsel",
-      "selected": true
+      "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court\n\nMaking revisions to termination language",
+      "counsel": "External Counsel",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779304321339,
       "name": "Utility Agreement (Cleburne)",
       "project": "Legado",
-      "priority": "Critical",
+      "priority": "Low",
       "status": "Holding Pattern",
-      "due": "2026-06-01",
-      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.",
-      "counsel": "External Counsel",
-      "selected": true
+      "due": "2026-07-10",
+      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.\n\nSent to Kent 06/10",
+      "counsel": "DFW West",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779305138608,
@@ -96,10 +101,11 @@
       "project": "Diocese / Summer Creek",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-05",
+      "due": "2026-06-19",
       "notes": "Received Jackson Walker comments 05/20. Division to review and have chelsea review\n\nBack in JW court to review",
       "counsel": "External Counsel",
-      "selected": true
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779305671029,
@@ -108,8 +114,8 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
-      "notes": "Outside legal making revisions to NSSA and Permanent Easement\n\nNSSA in BVRT court, Easement redlined and in FOR court. push back on 12.01 termination?",
-      "counsel": "External Counsel",
+      "notes": "Outside legal making revisions to NSSA and Permanent Easement\n\nNSSA in BVRT court, Easement redlined and in FOR court. push back on 12.01 termination?\n\nWaiting on NSSA amendment signature to send to CR",
+      "counsel": "DFW West",
       "selected": true,
       "action": "Drafting"
     },
@@ -128,12 +134,13 @@
       "id": 1779307165581,
       "name": "PSA Amendment",
       "project": "Lonestar, Phase 2A",
-      "priority": "Low",
+      "priority": "Critical",
       "status": "In Progress",
-      "due": "",
-      "notes": "Phase 1A/1B amendment - Tie with Phase 2A deadlines.",
-      "counsel": "Internal Counsel",
-      "selected": true
+      "due": "2026-06-15",
+      "notes": "Phase 1A/1B amendment - Tie with Phase 2A deadlines.\n\nAndy approved 06/15",
+      "counsel": "DFW West",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779307173983,
@@ -186,11 +193,12 @@
       "name": "MVRK WSA",
       "project": "Saddleside",
       "priority": "Critical",
-      "counsel": "Internal Counsel",
+      "counsel": "DFW West",
       "status": "In Progress",
       "due": "2026-06-01",
-      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)",
-      "selected": true
+      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)\n\nTerm sheet being reviewed by MVRK",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779821788158,
@@ -199,32 +207,22 @@
       "priority": "Critical",
       "counsel": "External Counsel",
       "status": "In Progress",
-      "due": "2026-06-05",
+      "due": "2026-06-19",
       "notes": "JAE has comments.",
-      "selected": true
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1779978488590,
       "name": "Easement Abandonment",
       "project": "Alpha Ranch",
-      "priority": "Critical",
+      "priority": "Low",
       "counsel": "DFW West",
       "status": "In Progress",
-      "due": "2026-05-29",
-      "notes": "Sewer Easement Abandonment. Need signatures and recorded",
+      "due": "2026-07-15",
+      "notes": "Sewer Easement Abandonment Signed by division. Waiting for Fort worth",
       "selected": true,
       "action": "Drafting"
-    },
-    {
-      "id": 1779979062132,
-      "name": "AT&T Easement Abandonment",
-      "project": "Legacy Fields",
-      "priority": "Critical",
-      "counsel": "External Counsel",
-      "status": "Upcoming",
-      "due": "2026-06-05",
-      "notes": "Does this clear title objection? Send to Joanna / JAE.",
-      "selected": true
     },
     {
       "id": 1779979249376,
@@ -252,14 +250,15 @@
     },
     {
       "id": 1779982785030,
-      "name": "Assignment Documents for Phase 1A/1B",
+      "name": "CFA assignment for Phase 2A",
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
-      "counsel": "Internal Counsel",
+      "counsel": "DFW West",
       "status": "Upcoming",
       "due": "2026-06-01",
-      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)",
-      "selected": true
+      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)\n\nCFA - Being routed. Chelsea provided comments, document updated and ready (Once city received bond, CFA will take 2 weeks to get compelted and routed)",
+      "selected": true,
+      "action": "Drafting"
     },
     {
       "id": 1780336817447,
@@ -269,20 +268,32 @@
       "counsel": "Internal Counsel",
       "action": "Reviewing",
       "status": "Upcoming",
-      "due": "2026-06-05",
-      "notes": "",
+      "due": "2026-06-19",
+      "notes": "Summer responded to Chelsea's comments 06/12",
       "selected": true
     },
     {
       "id": 1780926624740,
       "name": "Trash Agreement",
       "project": "Saddleside",
-      "priority": "Medium",
-      "counsel": "DFW West",
+      "priority": "High",
+      "counsel": "External Counsel",
       "action": "Reviewing",
       "status": "In Progress",
       "due": "2026-06-26",
-      "notes": "Does this stay with Internal, or do we get CR involved early?",
+      "notes": "Does this stay with Internal, or do we get CR involved early?\n\nSent to CR",
+      "selected": true
+    },
+    {
+      "id": 1781549235228,
+      "name": "District Assignment Documents",
+      "project": "Lonestar, Phase 2A",
+      "priority": "Critical",
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "status": "In Progress",
+      "due": "2026-06-19",
+      "notes": "District Document Assignment - Brookfield / district document (FOR on behalf of DHI on behalf of district).. Drafted and sent to contractors, waiting for contractors to fill out and send over",
       "selected": true
     }
   ],
