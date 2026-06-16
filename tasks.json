@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-15T18:55:33.680Z",
+  "exportedAt": "2026-06-16T19:22:09.102Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -14,7 +14,8 @@
     "Lonestar, Phase 2B",
     "Saddleside",
     "Terra Trace",
-    "TOEC, Phase 10"
+    "TOEC, Phase 10",
+    "Willowstone"
   ],
   "statuses": [
     "Upcoming",
@@ -29,11 +30,11 @@
       "project": "Saddleside",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-19",
-      "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.\n\nJAE curious why we arent recording 1st amendment.",
-      "counsel": "Internal Counsel",
-      "selected": true,
-      "action": "Drafting"
+      "due": "2026-06-05",
+      "notes": "Chelsea sending to JAE for them to mark up. JAE will get with Joanna to confirm this will suffice for title.",
+      "counsel": "External Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779300942475,
@@ -41,23 +42,23 @@
       "project": "Saddleside",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-19",
-      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE\n\nWaiting for word document and updated exhibit",
-      "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "due": "2026-05-29",
+      "notes": "Chelsea sending to JAE for confirmation on Title. When can this get completed?\n\nLandry to send to JAE",
+      "counsel": "External Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779301059670,
       "name": "Waterline Easement Documents",
       "project": "Legacy Fields",
       "priority": "Critical",
-      "status": "Complete",
-      "due": "2026-06-12",
-      "notes": "HA - Exhibits in landowners court. Chelsea needs to send waterline easement for us to finalize. (Verify we have updated exhibits)\n\nKetchersid - Under contract with Falcon. Need landowner info (Samantha Ketchersid (Wife) / Walker White (Falcon)) - Expected close October.\n\nAIL North (Hillwood) - Need to verify alignment with MP. Kimberly (Hillwood) - Close to landing the plane on their alignment and we can finalize.  Again, need easement language.\n\nExcel (DHL) - Brady Jackson - Reviewing alignment, kicked off Chelsea on easement documents.\n\nTI - Email sent to Anna 05/22 with update\n\nNeed to know if this is internal or external\n\nREceived. Division to review",
+      "status": "In Progress",
+      "due": "2026-05-29",
+      "notes": "HA - Exhibits in landowners court. Chelsea needs to send waterline easement for us to finalize. (Verify we have updated exhibits)\n\nKetchersid - Under contract with Falcon. Need landowner info (Samantha Ketchersid (Wife) / Walker White (Falcon)) - Expected close October.\n\nAIL North (Hillwood) - Need to verify alignment with MP. Kimberly (Hillwood) - Close to landing the plane on their alignment and we can finalize.  Again, need easement language.\n\nExcel (DHL) - Brady Jackson - Reviewing alignment, kicked off Chelsea on easement documents.\n\nTI - Email sent to Anna 05/22 with update\n\nNeed to know if this is internal or external",
       "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779301274609,
@@ -68,32 +69,32 @@
       "due": "2026-06-30",
       "notes": "Need standard language for us to begin negotiations with owners. Wanting to honor the prescriptive ROW being called out in deeds.\n\nChelsea sent email 05/26 to JAE",
       "counsel": "External Counsel",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779304154367,
-      "name": "BVRT Easements",
+      "name": "BVRT Easements - Separate Instrument Easements to be done",
       "project": "Saddleside",
       "priority": "Critical",
       "status": "Upcoming",
       "due": "2026-05-29",
-      "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court\n\nMaking revisions to termination language",
-      "counsel": "External Counsel",
-      "selected": true,
-      "action": "Drafting"
+      "notes": "Separate Instrument for discharge, utility, and buffer in Chelsea court",
+      "counsel": "Internal Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779304321339,
       "name": "Utility Agreement (Cleburne)",
       "project": "Legado",
-      "priority": "Low",
+      "priority": "Critical",
       "status": "Holding Pattern",
-      "due": "2026-07-10",
-      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review.\n\nSent to Kent 06/10",
+      "due": "2026-06-09",
+      "notes": "Need to know if we are overhauling this agreement or keep it as is.\nSent final agreement to Stephen for review. Landry will step in for Stephen here.",
       "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779305138608,
@@ -101,11 +102,11 @@
       "project": "Diocese / Summer Creek",
       "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-06-19",
-      "notes": "Received Jackson Walker comments 05/20. Division to review and have chelsea review\n\nBack in JW court to review",
-      "counsel": "External Counsel",
-      "selected": true,
-      "action": "Drafting"
+      "due": "2026-06-05",
+      "notes": "Purchaser is reviewing",
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779305671029,
@@ -114,10 +115,10 @@
       "priority": "Critical",
       "status": "In Progress",
       "due": "2026-05-29",
-      "notes": "Outside legal making revisions to NSSA and Permanent Easement\n\nNSSA in BVRT court, Easement redlined and in FOR court. push back on 12.01 termination?\n\nWaiting on NSSA amendment signature to send to CR",
+      "notes": "Outside legal making revisions to NSSA and Permanent Easement\n\nNSSA in BVRT court, Easement redlined and in FOR court. push back on 12.01 termination?",
       "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779306213223,
@@ -126,21 +127,22 @@
       "priority": "Low",
       "status": "Holding Pattern",
       "due": "",
-      "notes": "Drafting PSA. Holding pattern until FHA gets resolved.\n\nContract finished, FHA discussions to be had with DHI",
-      "counsel": "External Counsel",
+      "notes": "Division is reviewing",
+      "counsel": "DFW West",
+      "action": "Drafting",
       "selected": true
     },
     {
       "id": 1779307165581,
       "name": "PSA Amendment",
       "project": "Lonestar, Phase 2A",
-      "priority": "Critical",
+      "priority": "Low",
       "status": "In Progress",
-      "due": "2026-06-15",
-      "notes": "Phase 1A/1B amendment - Tie with Phase 2A deadlines.\n\nAndy approved 06/15",
+      "due": "",
+      "notes": "Phase 1A/1B amendment - Tie with Phase 2A deadlines.",
       "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779307173983,
@@ -150,7 +152,8 @@
       "status": "Upcoming",
       "due": "",
       "notes": "",
-      "counsel": "Internal Counsel",
+      "counsel": "DFW West",
+      "action": "Drafting",
       "selected": true
     },
     {
@@ -160,8 +163,9 @@
       "priority": "Low",
       "status": "Upcoming",
       "due": "",
-      "notes": "Smith Douglas",
-      "counsel": "External Counsel",
+      "notes": "Smith Douglas - Lagging Power is a current negotiation",
+      "counsel": "DFW West",
+      "action": "Drafting",
       "selected": true
     },
     {
@@ -172,9 +176,9 @@
       "status": "In Progress",
       "due": "2026-05-29",
       "notes": "Draft in DHI court.\n\nNeed to push SC date.",
-      "counsel": "External Counsel",
-      "selected": true,
-      "action": "Drafting"
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779377434948,
@@ -185,115 +189,127 @@
       "due": "2026-06-03",
       "notes": "Need revised document to send to Cemetery.\n\nSent to Rian for Cemetery to review.\n\nRian sent to Cemetery 05/27",
       "counsel": "DFW West",
-      "selected": true,
-      "action": "Drafting"
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779803223009,
       "name": "MVRK WSA",
       "project": "Saddleside",
       "priority": "Critical",
-      "counsel": "DFW West",
       "status": "In Progress",
       "due": "2026-06-01",
-      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)\n\nTerm sheet being reviewed by MVRK",
-      "selected": true,
-      "action": "Drafting"
+      "notes": "Sent Chelsea CR comments and JLS comments.\n\nMeet 06/01 to discuss. (Kelsey w/ ABHR reviewed briefly. Maybe reach out?)",
+      "counsel": "Internal Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779821788158,
       "name": "Contract",
       "project": "Estrella",
       "priority": "Critical",
-      "counsel": "External Counsel",
       "status": "In Progress",
-      "due": "2026-06-19",
-      "notes": "JAE has comments.",
-      "selected": true,
-      "action": "Drafting"
+      "due": "2026-06-05",
+      "notes": "Seller is redlining",
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779978488590,
       "name": "Easement Abandonment",
       "project": "Alpha Ranch",
-      "priority": "Low",
-      "counsel": "DFW West",
+      "priority": "Critical",
       "status": "In Progress",
-      "due": "2026-07-15",
-      "notes": "Sewer Easement Abandonment Signed by division. Waiting for Fort worth",
-      "selected": true,
-      "action": "Drafting"
+      "due": "2026-05-29",
+      "notes": "Sewer Easement Abandonment. Need signatures and recorded",
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
+    },
+    {
+      "id": 1779979062132,
+      "name": "AT&T Easement Abandonment",
+      "project": "Legacy Fields",
+      "priority": "Critical",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "Does this clear title objection? Send to Joanna / JAE. SEND to surveyor",
+      "counsel": "External Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779979249376,
       "name": "Waiver of Special Assessment / Ag Lease Termination",
       "project": "Alpha Ranch",
       "priority": "Critical",
-      "counsel": "DFW West",
       "status": "Upcoming",
       "due": "2026-06-05",
       "notes": "Need to sign and execute",
-      "selected": true,
-      "action": "Drafting"
+      "counsel": "Internal Counsel",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779979334511,
       "name": "Sewer Easement Dedication",
       "project": "Alpha Ranch",
       "priority": "Critical",
-      "counsel": "DFW West",
       "status": "Upcoming",
       "due": "2026-06-05",
       "notes": "",
-      "selected": true,
-      "action": "Drafting"
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1779982785030,
-      "name": "CFA assignment for Phase 2A",
+      "name": "Assignment Documents for Phase 1A/1B",
       "project": "Lonestar, Phase 2A",
       "priority": "Critical",
-      "counsel": "DFW West",
       "status": "Upcoming",
       "due": "2026-06-01",
-      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)\n\nCFA - Being routed. Chelsea provided comments, document updated and ready (Once city received bond, CFA will take 2 weeks to get compelted and routed)",
-      "selected": true,
-      "action": "Drafting"
+      "notes": "Get Chelsea documents from 1A/1B (district and CFA assignment)",
+      "counsel": "DFW West",
+      "action": "Drafting",
+      "selected": true
     },
     {
       "id": 1780336817447,
       "name": "CoServ Blanket Easement",
       "project": "Saddleside",
       "priority": "Critical",
+      "status": "Upcoming",
+      "due": "2026-06-05",
+      "notes": "CoServ Draft being confirmed by Chelsea",
       "counsel": "Internal Counsel",
       "action": "Reviewing",
-      "status": "Upcoming",
-      "due": "2026-06-19",
-      "notes": "Summer responded to Chelsea's comments 06/12",
       "selected": true
     },
     {
-      "id": 1780926624740,
-      "name": "Trash Agreement",
-      "project": "Saddleside",
-      "priority": "High",
-      "counsel": "External Counsel",
-      "action": "Reviewing",
-      "status": "In Progress",
-      "due": "2026-06-26",
-      "notes": "Does this stay with Internal, or do we get CR involved early?\n\nSent to CR",
-      "selected": true
-    },
-    {
-      "id": 1781549235228,
-      "name": "District Assignment Documents",
-      "project": "Lonestar, Phase 2A",
-      "priority": "Critical",
+      "id": 1780583985829,
+      "name": "Lot PSA",
+      "project": "Alpha Ranch",
+      "priority": "Low",
       "counsel": "DFW West",
       "action": "Drafting",
-      "status": "In Progress",
-      "due": "2026-06-19",
-      "notes": "District Document Assignment - Brookfield / district document (FOR on behalf of DHI on behalf of district).. Drafted and sent to contractors, waiting for contractors to fill out and send over",
+      "status": "Upcoming",
+      "due": "",
+      "notes": "",
+      "selected": true
+    },
+    {
+      "id": 1781637707295,
+      "name": "Lot PSA Draft",
+      "project": "Willowstone",
+      "priority": "High",
+      "counsel": "Internal Counsel",
+      "action": "Drafting",
+      "status": "Upcoming",
+      "due": "2026-06-23",
+      "notes": "",
       "selected": true
     }
   ],
