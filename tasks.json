@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-25T19:09:33.388Z",
+  "exportedAt": "2026-06-25T19:12:09.614Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -176,18 +176,6 @@
       "status": "In Progress",
       "due": "2026-07-07",
       "notes": "Sewer Easement Abandonment Signed by division. Waiting for Fort worth",
-      "counsel": "DFW West",
-      "action": "Drafting",
-      "selected": true
-    },
-    {
-      "id": 1779979249376,
-      "name": "Waiver of Special Assessment / Ag Lease Termination",
-      "project": "Alpha Ranch",
-      "priority": "Critical",
-      "status": "Upcoming",
-      "due": "2026-06-25",
-      "notes": "Signed by FOR, Needs to be executed by the District",
       "counsel": "DFW West",
       "action": "Drafting",
       "selected": true
