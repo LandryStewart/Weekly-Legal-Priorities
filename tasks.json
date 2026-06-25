@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-25T01:08:47.978Z",
+  "exportedAt": "2026-06-25T01:09:50.472Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -160,9 +160,9 @@
       "id": 1779821788158,
       "name": "Contract",
       "project": "Estrella",
-      "priority": "Critical",
+      "priority": "High",
       "status": "In Progress",
-      "due": "2026-06-19",
+      "due": "2026-06-29",
       "notes": "JAE Scheduling meeting and then redlining",
       "counsel": "External Counsel",
       "action": "Drafting",
