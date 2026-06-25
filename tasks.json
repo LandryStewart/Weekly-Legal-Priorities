@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-25T18:08:16.010Z",
+  "exportedAt": "2026-06-25T19:09:33.388Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -256,9 +256,9 @@
       "id": 1781637798192,
       "name": "Lot PSA Draft - PH 1",
       "project": "Willowstone",
-      "priority": "Critical",
+      "priority": "High",
       "status": "In Progress",
-      "due": "2026-06-23",
+      "due": "2026-06-29",
       "notes": "Terms sent over to Chelsea to edit PSA Draft from DHI",
       "counsel": "Internal Counsel",
       "action": "Drafting",
