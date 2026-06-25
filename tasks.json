@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportedAt": "2026-06-25T19:12:09.614Z",
+  "exportedAt": "2026-06-25T19:13:46.092Z",
   "projects": [
     "Alpha Ranch",
     "Diocese / Summer Creek",
@@ -165,18 +165,6 @@
       "due": "2026-06-29",
       "notes": "JAE Scheduling meeting and then redlining",
       "counsel": "External Counsel",
-      "action": "Drafting",
-      "selected": true
-    },
-    {
-      "id": 1779978488590,
-      "name": "Easement Abandonment",
-      "project": "Alpha Ranch",
-      "priority": "Low",
-      "status": "In Progress",
-      "due": "2026-07-07",
-      "notes": "Sewer Easement Abandonment Signed by division. Waiting for Fort worth",
-      "counsel": "DFW West",
       "action": "Drafting",
       "selected": true
     },
